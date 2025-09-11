@@ -1,0 +1,26 @@
+[user]
+	name = Changho Park
+	email = hoya@unboxers.team
+	signingkey = "key::ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBovP0WRfGMdRllKtc5bPTkstNrvk5aNY9nDiLnxAooH52ik5tUt3/uTlxMnfAWNbT5hmDsPt/uP0N0y3dvb7PY="
+[init]
+	# Run `git config --global init.defaultBranch main` to get this
+	#
+	# References:
+	#   https://sfconservancy.org/news/2020/jun/23/gitbranchname/
+	#   https://lore.kernel.org/git/pull.656.v4.git.1593009996.gitgitgadget@gmail.com/
+	#   https://github.com/github/renaming/
+	#   https://github.blog/changelog/2020-10-01-the-default-branch-for-newly-created-repositories-is-now-main/
+	defaultBranch = main
+[merge]
+	conflictstyle = zdiff3
+[commit]
+	verbose = true
+	gpgsign = yes
+[tag]
+	gpgsign = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.dotfiles/.gitallowedsigners
+[rerere]
+	enabled = true
