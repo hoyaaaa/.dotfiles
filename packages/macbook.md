@@ -11,7 +11,7 @@
 - golangci-lint
 - appcleaner
 - wezterm
-
+`
 ### `brew --cask`
 - google-chrome
 - visual-studio-code
