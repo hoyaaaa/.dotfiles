@@ -44,6 +44,7 @@ if command -v rustup >/dev/null 2>&1; then
 fi
 
 "$REPO_DIR/bin/dotfiles" packages-snapshot --quiet
+"$REPO_DIR/bin/dotfiles" apps-snapshot --quiet
 
 # Synchronize only files that are already tracked, plus the package manifest.
 # New untracked files are deliberately ignored so an accidental secret cannot

@@ -71,6 +71,19 @@ snapshot_packages() {
   trap - RETURN
 }
 
+snapshot_apps() {
+  local target="$REPO_DIR/packages/discovered-apps.md"
+  local generated
+  generated="$(mktemp "${TMPDIR:-/tmp}/dotfiles-apps.XXXXXX")"
+  trap 'rm -f "$generated"' RETURN
+  "$REPO_DIR/scripts/manual-apps-snapshot.sh" >"$generated"
+  if [[ ! -f "$target" ]] || ! cmp -s "$generated" "$target"; then
+    mv "$generated" "$target"
+    say "updated: $target"
+  fi
+  trap - RETURN
+}
+
 install_launch_agent() {
   local source="$REPO_DIR/launchd/com.hoyaaaa.dotfiles-maintenance.plist"
   local target="$HOME/Library/LaunchAgents/com.hoyaaaa.dotfiles-maintenance.plist"
@@ -96,6 +109,7 @@ usage() {
 Usage: dotfiles <command>
 
   apply              Apply managed configuration with chezmoi
+  apps-snapshot      Refresh the unmanaged macOS app inventory
   bootstrap          Install packages from Brewfile and apply with chezmoi
   install            Apply with chezmoi and enable weekly maintenance
   packages-snapshot  Refresh Brewfile from installed packages
@@ -108,6 +122,10 @@ case "${1:-}" in
   apply)
     [[ "${2:-}" == "--quiet" ]] && QUIET=1
     apply_config
+    ;;
+  apps-snapshot)
+    [[ "${2:-}" == "--quiet" ]] && QUIET=1
+    snapshot_apps
     ;;
   bootstrap)
     ensure_homebrew

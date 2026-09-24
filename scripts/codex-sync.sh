@@ -24,13 +24,17 @@ branch="${branch:-main}"
 
 git -C "$REPO_DIR" pull --rebase --autostash origin "$branch"
 "$REPO_DIR/bin/dotfiles" packages-snapshot --quiet
+"$REPO_DIR/bin/dotfiles" apps-snapshot --quiet
 git -C "$REPO_DIR" add -u
 git -C "$REPO_DIR" add -- \
   Brewfile \
   README.md \
   bin/dotfiles \
   launchd/com.hoyaaaa.dotfiles-maintenance.plist \
+  packages/discovered-apps.md \
+  packages/manual.md \
   scripts/codex-sync.sh \
+  scripts/manual-apps-snapshot.sh \
   scripts/update-packages.sh
 
 git -C "$REPO_DIR" diff --cached --quiet && exit 0

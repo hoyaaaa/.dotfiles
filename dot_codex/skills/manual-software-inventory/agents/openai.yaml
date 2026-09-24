@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manual Software Inventory"
+  short_description: "Track software that package managers cannot restore"
+  default_prompt: "Audit or update my manually installed software inventory."

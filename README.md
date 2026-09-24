@@ -34,6 +34,7 @@ installs packages, applies the managed configuration, and enables weekly mainten
 ~/.dotfiles/bin/dotfiles status
 ~/.dotfiles/bin/dotfiles update
 ~/.dotfiles/bin/dotfiles packages-snapshot
+~/.dotfiles/bin/dotfiles apps-snapshot
 ~/.dotfiles/bin/dotfiles bootstrap
 ```
 
@@ -41,11 +42,20 @@ installs packages, applies the managed configuration, and enables weekly mainten
 - `bootstrap` prepares a new Mac from the restored age key.
 - `update` updates Homebrew, pipx, uv, npm, and rustup packages that are installed.
 - `packages-snapshot` refreshes `Brewfile` from the current Homebrew state.
+- `apps-snapshot` audits app bundles not represented by Homebrew Cask or the Mac App Store.
+
+## Software inventory
+
+- `Brewfile` is the reproducible source of truth for Homebrew, Cask, and Mac App Store software.
+- `packages/manual.md` documents direct downloads and recovery-only setup without storing installers or secrets.
+- `packages/discovered-apps.md` is generated from `/Applications` and `~/Applications` and highlights apps that need review.
+- The global `manual-software-inventory` Codex skill updates the right inventory whenever software is installed, downloaded, removed, or audited.
+- The Codex `Stop` hook refreshes both package and app snapshots before its secret scan, signed commit, and push.
 
 ## Automation
 
-- A global Codex `Stop` hook refreshes `Brewfile` after package installs or removals,
-  then commits and pushes tracked dotfiles changes.
+- A global Codex `Stop` hook refreshes `Brewfile` and the unmanaged app audit after
+  software changes, then commits and pushes tracked dotfiles changes.
 - `launchd` runs package maintenance every Sunday at 10:00 local time.
 - Weekly maintenance commits tracked configuration and `Brewfile`, rebases, and pushes to `origin`.
 - Untracked files are never included in the automatic commit.
