@@ -1,0 +1,12 @@
+{
+  "managedBy": "clawd-on-desk",
+  "version": 3,
+  "platform": "posix",
+  "mode": "native",
+  "nodeBin": "/opt/homebrew/bin/node",
+  "target": "/Applications/Clawd on Desk.app/Contents/Resources/app.asar.unpacked/hooks/codex-hook.js",
+  "args": [],
+  "env": {},
+  "generation": "bb3ac066e3f24a6c08276d8930d27fe0373ecc1ed5e1ca44ddc7ad11a2ac0114",
+  "binding": "beafd204627fffd5ea7c84eb67b18b2dd51041011c2809dcb01bddf6edb404da"
+}

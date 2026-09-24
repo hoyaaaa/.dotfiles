@@ -1,0 +1,3 @@
+interface:
+  display_name: "Secretive"
+  short_description: "Use notify-key for SSH Git signing"

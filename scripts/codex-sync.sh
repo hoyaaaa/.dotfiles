@@ -30,9 +30,12 @@ git -C "$REPO_DIR" add -- \
   Brewfile \
   README.md \
   bin/dotfiles \
+  dot_codex \
   launchd/com.hoyaaaa.dotfiles-maintenance.plist \
   packages/discovered-apps.md \
   packages/manual.md \
+  private_dot_agents \
+  private_dot_config/private_chezmoi-secrets \
   scripts/codex-sync.sh \
   scripts/manual-apps-snapshot.sh \
   scripts/update-packages.sh

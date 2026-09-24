@@ -76,8 +76,6 @@ brew "gh"
 brew "git-lfs"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
-# Slightly more awesome Standard Unix Password Manager for Teams
-brew "gopass"
 # OpenType text shaping engine
 brew "harfbuzz"
 # Improved top (interactive process viewer)
@@ -122,8 +120,6 @@ brew "pandoc"
 brew "pgpdump"
 # Display the PID number for a given process name
 brew "pidof"
-# Pinentry for GPG on Mac
-brew "pinentry-mac"
 # Execute binaries from Python packages in isolated environments
 brew "pipx"
 # Object-relational database system

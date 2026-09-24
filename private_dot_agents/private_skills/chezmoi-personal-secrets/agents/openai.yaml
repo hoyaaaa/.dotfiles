@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chezmoi Personal Secrets"
+  short_description: "Manage age-encrypted personal secrets with chezmoi"
+  default_prompt: "Use $chezmoi-personal-secrets to manage one of my personal secrets safely."

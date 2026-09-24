@@ -1,0 +1,3 @@
+interface:
+  display_name: "AWS SSO Chrome Login"
+  short_description: "Login to AWS SSO with the 창호 Chrome profile"

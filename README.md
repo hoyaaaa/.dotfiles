@@ -26,6 +26,8 @@ macOS configuration and package maintenance managed with chezmoi from this repos
 
 The bootstrap command installs Homebrew when needed, validates the restored age key,
 installs packages, applies the managed configuration, and enables weekly maintenance.
+It also restores the user's global Codex skills, hook configuration, and age-encrypted
+personal secret store.
 
 ## Commands
 
@@ -51,6 +53,8 @@ installs packages, applies the managed configuration, and enables weekly mainten
 - `packages/manual.md` documents direct downloads and recovery-only setup without storing installers or secrets.
 - `packages/discovered-apps.md` is generated from `/Applications` and `~/Applications` and highlights apps that need review.
 - The global `manual-software-inventory` Codex skill updates the right inventory whenever software is installed, downloaded, removed, or audited.
+- Personal secrets live in `~/.config/chezmoi-secrets/secrets.json`; only its age-encrypted source is committed.
+- User-maintained global Codex skills and hooks are restored by chezmoi. Built-in runtime skills remain owned by Codex and installed apps.
 - The Codex `Stop` hook refreshes both package and app snapshots before its secret scan, signed commit, and push.
 
 ## Automation
@@ -64,10 +68,10 @@ installs packages, applies the managed configuration, and enables weekly mainten
 
 ## Security boundary
 
-Public preferences are stored as plain source files. Manually maintained connection
-and credential files are stored only as age-encrypted chezmoi source files. Private
-keys, credential databases, authentication caches, certificates, histories, and logs
-remain local and must never be committed.
+Public preferences and user-maintained skills are stored as plain source files.
+Personal secrets and manually maintained credential files are stored only as
+age-encrypted chezmoi source files. Private keys, authentication caches, certificates,
+histories, and logs remain local and must never be committed.
 
 The age identity is stored only at `~/.config/chezmoi/key.txt`; its recovery copy
 lives in Apple Passwords.
