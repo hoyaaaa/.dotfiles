@@ -1,0 +1,249 @@
+{
+  "editor.fontSize": 12,
+  "editor.fontWeight": "400",
+  "editor.lineHeight": 20,
+  "editor.letterSpacing": 0.5,
+  "editor.fontLigatures": true,
+  "editor.wordWrap": "on",
+  "editor.cursorBlinking": "smooth",
+  "terminal.integrated.fontFamily": "'Source Code Pro for Powerline', 'Operator Mono', 'Inconsolata for Powerline', monospace",
+  "editor.cursorStyle": "line",
+  "editor.cursorWidth": 5,
+  "editor.renderWhitespace": "boundary",
+  "editor.snippetSuggestions": "top",
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.glyphMargin": true,
+  "explorer.confirmDragAndDrop": false,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "workbench.fontAliasing": "auto",
+  "terminal.integrated.macOptionIsMeta": true,
+  "editor.largeFileOptimizations": false,
+  "files.defaultLanguage": "english",
+  "editor.suggestSelection": "first",
+  "files.exclude": {
+    "": true,
+    "*.sublime-*": true,
+    "**/__pycache__": true,
+    "**/.classpath": true,
+    "**/.DS_Store": true,
+    "**/.factorypath": true,
+    "**/.git": true,
+    "**/.project": true,
+    "**/.pytest_cache": true,
+    "**/.settings": true,
+    "**/.vscode": true,
+    "**/node_modules": true,
+    "venv": true,
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
+  },
+  "docker.containers.sortBy": "CreatedTime",
+  "editor.occurrencesHighlight": "off",
+  "diffEditor.ignoreTrimWhitespace": true,
+  "remote.downloadExtensionsLocally": true,
+  "diffEditor.maxComputationTime": 0,
+  "security.workspace.trust.untrustedFiles": "open",
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook",
+    "*.vsix": "default"
+  },
+  "python.languageServer": "Pylance",
+  "workbench.list.openMode": "doubleClick",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "python.analysis.completeFunctionParens": true,
+  "files.associations": {
+    "**/*.html": "html",
+    "**/templates/**/*.html": "django-html",
+    "**/templates/**/*": "django-txt",
+    "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+  },
+  "emmet.includeLanguages": {
+    "django-html": "html"
+  },
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "editor.guides.bracketPairs": "active",
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "explorer.autoReveal": "focusNoScroll",
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.accessibilitySupport": "on",
+  "git.confirmSync": false,
+  "terminal.external.osxExec": "warp.app",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/env/**": true,
+    "**/venv/**": true,
+    "env-*": true,
+    "**/.trunk/*actions/": true,
+    "**/.trunk/*logs/": true,
+    "**/.trunk/*notifications/": true,
+    "**/.trunk/*out/": true,
+    "**/.trunk/*plugins/": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/env": true,
+    "**/venv": true
+  },
+  "typescript.autoClosingTags": false,
+  "javascript.autoClosingTags": false,
+  "html.autoClosingTags": false,
+  "terminal.integrated.profiles.osx": {
+    "bash": {
+      "path": "bash",
+      "args": ["-l"],
+      "icon": "terminal-bash"
+    },
+    "zsh": {
+      "path": "zsh",
+      "args": ["-l"]
+    },
+    "fish": {
+      "path": "/opt/homebrew/bin/fish", // overriding
+      "args": ["-l"]
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "editor.tabCompletion": "on",
+  "emmet.triggerExpansionOnTab": true,
+  "terminal.integrated.env.linux": {
+    "PATH": "/home/unboxers/.local/bin:${env:PATH}"
+  },
+  "remote.SSH.enableDynamicForwarding": false,
+  "remote.SSH.enableAgentForwarding": false,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+    "*.sqlite": "${capture}.${extname}-*",
+    "*.db": "${capture}.${extname}-*",
+    "*.sqlite3": "${capture}.${extname}-*",
+    "*.db3": "${capture}.${extname}-*",
+    "*.sdb": "${capture}.${extname}-*",
+    "*.s3db": "${capture}.${extname}-*"
+  },
+  "containers.containers.sortBy": "CreatedTime",
+  "diffEditor.codeLens": true,
+  "workbench.editorLargeFileConfirmation": 80,
+  "chat.commandCenter.enabled": false,
+  "codeium.enableConfig": {
+    "*": true,
+    "ignore": true
+  },
+  "editor.semanticHighlighting.enabled": true,
+  "terminal.integrated.minimumContrastRatio": 1,
+  "window.titleBarStyle": "custom",
+  "gopls": {
+    "ui.semanticTokens": true,
+  },
+  "docker.extension.enableComposeLanguageServer": false,
+  "[go]": {
+        "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go"
+  },
+  "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+  "go.lintTool": "golangci-lint-v2",
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [
+      80
+    ],
+    "editor.selectionHighlight": false,
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": "off"
+  },
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "git.enableSmartCommit": true,
+    "go.formatTool": "custom",
+    "go.alternateTools": {
+    "customFormatter": "golangci-lint"
+  },
+  "go.formatFlags": [
+    "fmt",
+    "--stdin"
+  ],
+  "codeium.enableCommandSideHintEducation": false,
+  "codeium.enableExplainProblem": false,
+  "codeium.enableCodeLens": false,
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "workbench.iconTheme": "bearded-icons",
+  "workbench.colorTheme": "Atom One Light",
+  "[sql]": {
+    "editor.formatOnSave": true,
+  },
+  "pgFormatter.configFile": "${workspaceFolder}/pg_format.conf",
+  "docker.lsp.experimental.vulnerabilityScanning": false,
+  "docker.lsp.experimental.scout.vulnerabilities": false,
+  "docker.lsp.experimental.scout.criticalHighVulnerabilities": false,
+  "go.toolsManagement.autoUpdate": true,
+  "sonarlint.connectedMode.connections.sonarcloud": [
+    {
+      "organizationKey": "unboxerscorp",
+      "connectionId": "unboxerscorp",
+      "region": "EU"
+    }
+  ],
+  "sonarlint.focusOnNewCode": false,
+  "sonarlint.automaticAnalysis": true,
+  "search.showLineNumbers": true,
+  "vscode-neovim.neovimInitVimPaths.darwin": "$HOME/.config/nvim/init.lua",
+  "chat.mcp.gallery.enabled": true,
+  "claudeCode.preferredLocation": "panel",
+  "http.systemCertificatesNode": true,
+  "geminicodeassist.project": "gen-lang-client-0683527385",
+  "search.useIgnoreFiles": false,
+  "chat.disableAIFeatures": true,
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml"
+  ],
+  "editor.hover.showLongLineWarning": false
+}

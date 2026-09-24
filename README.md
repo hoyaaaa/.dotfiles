@@ -28,9 +28,10 @@ macOS configuration and package maintenance managed with chezmoi from this repos
 
 ## Security boundary
 
-The repository intentionally does not manage SSH keys, AWS credentials, gopass data,
-GitHub authentication, rclone configuration, shell history, database history, `.env`
-files, certificates, or API keys. Those remain local and must never be committed.
+Public preferences are stored as plain source files. Manually maintained connection
+and credential files are stored only as age-encrypted chezmoi source files. Private
+keys, credential databases, authentication caches, certificates, histories, and logs
+remain local and must never be committed.
 
-The age identity used for encrypted files is stored only at
-`~/.config/chezmoi/key.txt`; its recovery copy lives in Apple Passwords.
+The age identity is stored only at `~/.config/chezmoi/key.txt`; its recovery copy
+lives in Apple Passwords.
