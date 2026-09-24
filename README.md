@@ -46,6 +46,7 @@ installs packages, applies the managed configuration, and enables weekly mainten
 
 ## Software inventory
 
+- Installation priority is Homebrew/Cask, then the Mac App Store, then a documented manual install.
 - `Brewfile` is the reproducible source of truth for Homebrew, Cask, and Mac App Store software.
 - `packages/manual.md` documents direct downloads and recovery-only setup without storing installers or secrets.
 - `packages/discovered-apps.md` is generated from `/Applications` and `~/Applications` and highlights apps that need review.

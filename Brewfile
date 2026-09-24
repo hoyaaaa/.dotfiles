@@ -202,10 +202,20 @@ cask "ghostty"
 cask "google-chrome"
 # Windows manager and desktop organiser
 cask "hazeover"
+# View and edit HWP documents
+cask "hop"
 # Menu bar calendar
 cask "itsycal"
+# Keyboard customiser
+cask "karabiner-elements"
 # Find shortcuts for any installed application
 cask "keyclu"
+# Spreadsheet software
+cask "microsoft-excel"
+# Presentation software
+cask "microsoft-powerpoint"
+# Word processor
+cask "microsoft-word"
 # GameStream client
 cask "moonlight"
 # App to write, plan, collaborate, and get organised
@@ -218,8 +228,12 @@ cask "ollama-app"
 cask "orbstack"
 # Store SSH keys in the Secure Enclave
 cask "secretive"
+# Mesh VPN based on WireGuard
+cask "tailscale-app"
 # Open-source code editor
 cask "visual-studio-code"
+# Menu bar toolkit with keep-awake, system monitor and volume mixer
+cask "vorssaint"
 mas "CotEditor", id: 1024640650
 mas "Hidden Bar", id: 1452453066
 mas "RunCat", id: 1429033973

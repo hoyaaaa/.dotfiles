@@ -5,14 +5,5 @@ installed but are not currently represented by Homebrew Cask or the Mac App Stor
 Review them with `packages/manual.md`; do not add secrets or installer files here.
 
 - Burly.app
-- HOP.app
-- Karabiner-Elements.app
-- Karabiner-EventViewer.app
-- Logi Options.app
-- Microsoft Excel.app
-- Microsoft PowerPoint.app
-- Microsoft Word.app
-- Tailscale.app
 - TrackPointD.app
-- Vorssaint.app
 - ego lite.app

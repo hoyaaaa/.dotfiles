@@ -3,6 +3,27 @@
 Only software and setup that cannot be restored from `Brewfile` belongs here.
 Downloaded installers, licenses, credentials, and private keys must not be committed.
 
+## Burly
+
+- Source: https://www.burly.click/
+- Reason: the official macOS app is distributed directly and is unavailable through Homebrew and the Mac App Store.
+- Restore: download it from the official site and move `Burly.app` to `/Applications`.
+- Verify: open Burly and confirm it appears as a macOS default-browser option.
+
+## ego lite
+
+- Source: https://github.com/citrolabs/ego-lite
+- Reason: distributed directly by CitroLabs and unavailable through Homebrew and the Mac App Store.
+- Restore: install the latest signed macOS release from the official repository.
+- Verify: launch `ego lite.app` and confirm its browser service starts.
+
+## TrackPointD
+
+- Source: no public upstream or installer was found; the installed bundle identifier is `com.user.trackpointd`.
+- Reason: this appears to be a locally built helper and is unavailable through Homebrew and the Mac App Store.
+- Restore: preserve the original source or signed installer outside this public repository, then install it to `~/Applications/TrackPointD.app`.
+- Verify: launch it and confirm TrackPoint scrolling works.
+
 ## Powerlevel10k
 
 - Source: https://github.com/romkatv/powerlevel10k

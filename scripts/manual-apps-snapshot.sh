@@ -12,6 +12,13 @@ if command -v brew >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then
     brew info --json=v2 --cask $casks 2>/dev/null |
       jq -r '.casks[].artifacts[]? | .app? // empty | if type == "array" then .[] else . end' |
       while IFS= read -r app; do basename "$app"; done >>"$managed"
+
+    # Installer-package casks do not expose their installed app names as artifacts.
+    grep -Fxq 'karabiner-elements' <<<"$casks" && printf '%s\n' 'Karabiner-Elements.app' 'Karabiner-EventViewer.app' >>"$managed"
+    grep -Fxq 'microsoft-excel' <<<"$casks" && printf '%s\n' 'Microsoft Excel.app' >>"$managed"
+    grep -Fxq 'microsoft-powerpoint' <<<"$casks" && printf '%s\n' 'Microsoft PowerPoint.app' >>"$managed"
+    grep -Fxq 'microsoft-word' <<<"$casks" && printf '%s\n' 'Microsoft Word.app' >>"$managed"
+    grep -Fxq 'tailscale-app' <<<"$casks" && printf '%s\n' 'Tailscale.app' >>"$managed"
   fi
 fi
 
