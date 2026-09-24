@@ -35,7 +35,7 @@
 [tag]
 	gpgsign = true
 [gpg "ssh"]
-	allowedsignersfile = ~/.dotfiles/.gitallowedsigners
+	allowedsignersfile = ~/.gitallowedsigners
 	program = /Users/hoya/.local/bin/git-ssh-sign-secretive
 [rerere]
 	enabled = true
