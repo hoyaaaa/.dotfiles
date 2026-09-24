@@ -3,6 +3,10 @@ set -Eeuo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
+CHEZMOI_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/chezmoi"
+CHEZMOI_CONFIG="$CHEZMOI_CONFIG_DIR/chezmoi.toml"
+AGE_IDENTITY="$CHEZMOI_CONFIG_DIR/key.txt"
+AGE_RECIPIENT="age1dhtjznmkvu26fq97sxnnz6mutvh408qetn5mwqsqfrd9g9elwgfqsc76uf"
 QUIET=0
 
 say() {
@@ -11,6 +15,47 @@ say() {
 
 apply_config() {
   chezmoi --source "$REPO_DIR" apply
+}
+
+ensure_homebrew() {
+  if ! command -v brew >/dev/null 2>&1; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -x /usr/local/bin/brew ]]; then
+      eval "$(/usr/local/bin/brew shellenv)"
+    fi
+  fi
+}
+
+configure_chezmoi() {
+  [[ -f "$AGE_IDENTITY" ]] || {
+    printf 'missing: %s\nRestore it from Apple Passwords, then run bootstrap again.\n' "$AGE_IDENTITY" >&2
+    exit 1
+  }
+
+  chmod 600 "$AGE_IDENTITY"
+  local actual_recipient
+  actual_recipient="$(age-keygen -y "$AGE_IDENTITY" 2>/dev/null)" || {
+    printf 'invalid age identity: %s\n' "$AGE_IDENTITY" >&2
+    exit 1
+  }
+  [[ "$actual_recipient" == "$AGE_RECIPIENT" ]] || {
+    printf 'wrong age identity in %s\n' "$AGE_IDENTITY" >&2
+    exit 1
+  }
+
+  mkdir -p "$CHEZMOI_CONFIG_DIR"
+  if [[ ! -f "$CHEZMOI_CONFIG" ]]; then
+    cat >"$CHEZMOI_CONFIG" <<EOF
+sourceDir = "$REPO_DIR"
+encryption = "age"
+
+[age]
+identity = "$AGE_IDENTITY"
+recipient = "$AGE_RECIPIENT"
+EOF
+  fi
 }
 
 snapshot_packages() {
@@ -65,8 +110,12 @@ case "${1:-}" in
     apply_config
     ;;
   bootstrap)
+    ensure_homebrew
+    brew install age chezmoi
+    configure_chezmoi
     brew bundle install --no-upgrade --file="$REPO_DIR/Brewfile"
     apply_config
+    install_launch_agent
     ;;
   install)
     apply_config

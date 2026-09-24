@@ -2,6 +2,31 @@
 
 macOS configuration and package maintenance managed with chezmoi from this repository.
 
+## New Mac
+
+1. In Apple Passwords, copy the password from `chezmoi age recovery key`, then restore it:
+
+   ```sh
+   mkdir -p ~/.config/chezmoi
+   pbpaste > ~/.config/chezmoi/key.txt
+   chmod 600 ~/.config/chezmoi/key.txt
+   ```
+
+2. Clone this public repository over HTTPS:
+
+   ```sh
+   git clone https://github.com/hoyaaaa/.dotfiles.git ~/.dotfiles
+   ```
+
+3. Bootstrap everything:
+
+   ```sh
+   ~/.dotfiles/bin/dotfiles bootstrap
+   ```
+
+The bootstrap command installs Homebrew when needed, validates the restored age key,
+installs packages, applies the managed configuration, and enables weekly maintenance.
+
 ## Commands
 
 ```sh
@@ -13,7 +38,7 @@ macOS configuration and package maintenance managed with chezmoi from this repos
 ```
 
 - `install` applies managed files with chezmoi and registers weekly maintenance.
-- `bootstrap` installs missing Homebrew dependencies from `Brewfile` on a new Mac.
+- `bootstrap` prepares a new Mac from the restored age key.
 - `update` updates Homebrew, pipx, uv, npm, and rustup packages that are installed.
 - `packages-snapshot` refreshes `Brewfile` from the current Homebrew state.
 
