@@ -1,35 +1,114 @@
+### Current status (updated: 2026-03-06)
+
 ### `brew`
-- go
-- git
+- act
+- adembc/tap/lazyssh
+- ariga/tap/atlas
+- atuin
+- awscli
+- cloudflared
+- cmake
+- cocoapods
 - curl
+- daipeihust/tap/im-select
+- dart-sdk
+- dbmate
+- duckdb
+- fd
+- ffmpeg
+- flyctl
+- gawk
+- geckodriver
+- gemini-cli
+- git
+- go-task/tap/go-task
+- golangci-lint
+- helix
+- jj
+- jmeter
+- k6
+- lazygit
+- libheif
+- libomp
 - lsd
 - neovim
+- onnxruntime
+- openjdk@17
+- pgcli
+- pgformatter
+- pgplex/pgschema/pgschema
+- pipx
+- pnpm
 - postgresql@17
-- awscli
-- fzf
-- ffmpeg
-- golangci-lint
-- appcleaner
-- wezterm
-`
+- prek
+- redis
+- rustup
+- sonar-scanner
+- terracognita
+- terraform
+- terraformer
+- uv
+- vim
+- wget
+- yq
+- zellij
+
 ### `brew --cask`
-- google-chrome
-- visual-studio-code
-- secretive
-- orbstack
-- notion
-- raycast
+- anki
+- antigravity
+- appcleaner
+- bitwarden
+- brave-browser
+- chatgpt
+- claude
 - claude-code
+- codex
+- coteditor
+- crossover
+- cursor
+- cursor-cli
+- datagrip
 - dbeaver-community
+- devtoys
+- devutils
+- flutter
+- ghostty
+- google-chrome
+- gray
+- karabiner-elements
+- keka
+- keycastr
+- logitech-options
+- mac-mouse-fix
+- moonlight
+- notion
+- obsidian
+- orbstack
+- raycast
+- redis-insight
+- secretive
 - slack
+- spotify
+- tailscale-app
+- thunderbird
+- todoist-app
+- tunnelblick
+- utm
+- visual-studio-code
+- warp
+- whisky
 
 ### App store
 - kakaotalk
+- bitwarden
+- xcode
+- transporter
+- tuneful
 
-### Github
-- powerlevel10k - Manual
+### Manual
+- powerlevel10k -> Github Manual
+- shorebird [#getting-started](https://docs.shorebird.dev/getting-started/)
+- atuin [#installation](https://docs.atuin.sh/guide/installation/#recommended-installation-approach)
 
-
-### TODO
-- [] 개인 bitwarden 에 있던 비밀번호, TOTP, passkey 모두 icloud로 이전
-- [] new-pair-key.pem 키 파일 제거하기
+### `pipx`
+- sqlit-tui (`sqlit`)

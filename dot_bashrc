@@ -1,0 +1,13 @@
+# >>> Added by Spyder >>>
+alias uninstall-spyder=/Users/hoya/Library/spyder-6/uninstall-spyder.sh
+# <<< Added by Spyder <<<
+
+# Imported shell environment
+[[ -f "$HOME/.bash-preexec.sh" ]] && source "$HOME/.bash-preexec.sh"
+command -v atuin >/dev/null 2>&1 && eval "$(atuin init bash)"
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+[[ -d "$HOME/.config/shorebird/bin" ]] && export PATH="$HOME/.config/shorebird/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/hoya/.local/bin:$PATH"

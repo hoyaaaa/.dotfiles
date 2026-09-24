@@ -59,6 +59,11 @@ if w.target_triple == 'aarch64-apple-darwin' or w.target == 'x86_64-apple-darwin
 
   table.insert(c.keys, {mods = 'CMD', key = 'm', action = a.SplitVertical})
   table.insert(c.keys, {mods = 'CMD', key = 'l', action = a.SplitHorizontal})
+  table.insert(c.keys, {mods = 'OPT', key = 'LeftArrow', action = a{SendString = "\x1bb"}})
+  table.insert(c.keys, {mods = 'OPT', key = 'RightArrow', action = a{SendString = "\x1bf"}})
+  table.insert(c.keys, {mods = 'CMD', key = 'LeftArrow', action = a{SendString = "\x1bOH"}})
+  table.insert(c.keys, {mods = 'CMD', key = 'RightArrow', action = a{SendString = "\x1bOF"}})
+  -- table.insert(c.keys, {mods = 'CMD|SHIFT', key = '=', action = a.EqualizePaneSizes})
 elseif w.target_triple == 'x86_64-pc-windows-msvc' then
   -- Windows specific settings
   c.default_domain = 'WSL:Arch'
@@ -76,5 +81,8 @@ elseif w.target_triple == 'x86_64-pc-windows-msvc' then
   table.insert(c.keys, {mods = 'CTRL', key = '8', action = a.ActivateTab(7)})
   table.insert(c.keys, {mods = 'CTRL', key = '9', action = a.ActivateTab(8)})
 end
+
+c.unix_domains = { { name = 'unix' } }
+c.default_domain = 'unix'
 
 return c

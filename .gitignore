@@ -1,0 +1,14 @@
+.DS_Store
+*.log
+*.local
+*.pem
+*.key
+.env
+.env.*
+.aws/
+.ssh/
+**/credentials
+**/hosts.yml
+**/rclone.conf
+**/history
+**/*.bak

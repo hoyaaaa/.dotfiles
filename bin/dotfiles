@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
+QUIET=0
+
+say() {
+  (( QUIET )) || printf '%s\n' "$*"
+}
+
+apply_config() {
+  chezmoi --source "$REPO_DIR" apply
+}
+
+snapshot_packages() {
+  command -v brew >/dev/null 2>&1 || return 0
+  local generated
+  generated="$(mktemp "${TMPDIR:-/tmp}/dotfiles-brewfile.XXXXXX")"
+  trap 'rm -f "$generated"' RETURN
+  brew bundle dump --force --file="$generated" >/dev/null
+  if [[ ! -f "$REPO_DIR/Brewfile" ]] || ! cmp -s "$generated" "$REPO_DIR/Brewfile"; then
+    mv "$generated" "$REPO_DIR/Brewfile"
+    say "updated: $REPO_DIR/Brewfile"
+  fi
+  trap - RETURN
+}
+
+install_launch_agent() {
+  local source="$REPO_DIR/launchd/com.hoyaaaa.dotfiles-maintenance.plist"
+  local target="$HOME/Library/LaunchAgents/com.hoyaaaa.dotfiles-maintenance.plist"
+  mkdir -p "$(dirname "$target")"
+  cp "$source" "$target"
+  launchctl bootout "gui/$(id -u)" "$target" >/dev/null 2>&1 || true
+  launchctl bootstrap "gui/$(id -u)" "$target"
+  say "enabled: weekly package maintenance"
+}
+
+show_status() {
+  chezmoi --source "$REPO_DIR" status
+  git -C "$REPO_DIR" status --short
+  if command -v brew >/dev/null 2>&1; then
+    local outdated_count
+    outdated_count="$(brew outdated --quiet | wc -l | tr -d ' ')"
+    printf 'Homebrew outdated: %s\n' "$outdated_count"
+  fi
+}
+
+usage() {
+  cat <<'EOF'
+Usage: dotfiles <command>
+
+  apply              Apply managed configuration with chezmoi
+  bootstrap          Install packages from Brewfile and apply with chezmoi
+  install            Apply with chezmoi and enable weekly maintenance
+  packages-snapshot  Refresh Brewfile from installed packages
+  status             Show unmanaged links, repository changes, and outdated packages
+  update             Update installed package managers now
+EOF
+}
+
+case "${1:-}" in
+  apply)
+    [[ "${2:-}" == "--quiet" ]] && QUIET=1
+    apply_config
+    ;;
+  bootstrap)
+    brew bundle install --no-upgrade --file="$REPO_DIR/Brewfile"
+    apply_config
+    ;;
+  install)
+    apply_config
+    install_launch_agent
+    ;;
+  packages-snapshot)
+    [[ "${2:-}" == "--quiet" ]] && QUIET=1
+    snapshot_packages
+    ;;
+  status)
+    show_status
+    ;;
+  update)
+    exec "$REPO_DIR/scripts/update-packages.sh"
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac

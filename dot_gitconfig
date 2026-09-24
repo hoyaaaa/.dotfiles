@@ -1,0 +1,47 @@
+[user]
+	name = Changho Park
+	email = hoya.develop@gmail.com
+	signingkey = /Users/hoya/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/PublicKeys/915c98ed905a95ae37ae94e98a038334.pub
+[core]
+	excludesfile = /Users/hoya/.gitignore_global
+	compression = 0
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/hoya/.stCommitMsg
+	verbose = true
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[http]
+	postBuffer = 2048M
+[pack]
+	window = 1
+[ssh]
+	postBuffer = 2048M
+[gpg]
+	format = ssh
+[init]
+	defaultbranch = main
+[merge]
+	conflictstyle = zdiff3
+[tag]
+	gpgsign = true
+[gpg "ssh"]
+	allowedsignersfile = ~/.dotfiles/.gitallowedsigners
+	program = /Users/hoya/.local/bin/git-ssh-sign-secretive
+[rerere]
+	enabled = true
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential

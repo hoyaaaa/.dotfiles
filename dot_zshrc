@@ -1,0 +1,174 @@
+# Deduplicate PATH entries
+typeset -U path PATH
+[[ -d /opt/homebrew/bin ]] && path=(/opt/homebrew/bin $path)
+[[ -d /opt/homebrew/sbin ]] && path=(/opt/homebrew/sbin $path)
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+if command -v lsd >/dev/null; then
+  alias ls=lsd
+  alias l='lsd -Al'
+else
+  alias l='ls -Al'
+fi
+
+# vim
+export EDITOR=vim
+
+# aws-cli
+export AWS_DEFAULT_PROFILE=PowerUserAccess-390700680594
+alias awslogin="aws sso login --profile ${AWS_DEFAULT_PROFILE}"
+
+# Secretive
+[[ -S "$HOME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh" ]] && \
+  export SSH_AUTH_SOCK="$HOME/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh"
+[[ -d /opt/homebrew/opt/postgresql@17/bin ]] && path=(/opt/homebrew/opt/postgresql@17/bin $path)
+[[ -d /opt/homebrew/opt/postgresql@15/bin ]] && path=(/opt/homebrew/opt/postgresql@15/bin $path)
+
+# go
+export PATH=$HOME/go/bin:$PATH
+
+# prompt (skip prompt daemons when stdout is not a terminal)
+if [[ -t 1 && -r "$HOME/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
+  source "$HOME/powerlevel10k/powerlevel10k.zsh-theme"
+  [[ -r "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
+elif [[ -t 1 ]] && command -v starship >/dev/null; then
+  eval "$(starship init zsh)"
+fi
+
+# config files
+export XDG_CONFIG_HOME=$HOME/.config
+
+# keybind
+bindkey '^[f' forward-word
+bindkey '^[b' backward-word
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+
+# autocompletion (cache: full audit max once per day)
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+## [Completion]
+## dart/flutter: lazy-load completion only on first use
+_dart_completion_load() {
+  unfunction dart flutter 2>/dev/null
+  [[ -f /Users/hoya/.dart-cli-completion/zsh-config.zsh ]] && source /Users/hoya/.dart-cli-completion/zsh-config.zsh
+  command "$0" "$@"
+}
+if [[ -f /Users/hoya/.dart-cli-completion/zsh-config.zsh ]]; then
+  dart()    { unfunction dart flutter 2>/dev/null; source /Users/hoya/.dart-cli-completion/zsh-config.zsh; dart "$@" }
+  flutter() { unfunction dart flutter 2>/dev/null; source /Users/hoya/.dart-cli-completion/zsh-config.zsh; flutter "$@" }
+fi
+## [/Completion]
+
+## flutter
+export FLUTTER_HOME=/opt/flutter
+[[ -d "$FLUTTER_HOME/bin" ]] && path+=("$FLUTTER_HOME/bin")
+[[ -d "$HOME/.pub-cache/bin" ]] && path+=("$HOME/.pub-cache/bin")
+export PATH="$HOME/.shorebird/bin:$PATH"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+
+## home local bin path
+export PATH="$HOME/.local/bin:$PATH"
+
+## zsh history
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+setopt APPEND_HISTORY             # Write to history
+setopt HIST_EXPIRE_DUPS_FIRST     # Expire duplicate entries first when trimming history.
+setopt HIST_FIND_NO_DUPS          # Do not display a line previously found.
+setopt HIST_IGNORE_ALL_DUPS       # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_IGNORE_DUPS           # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_SPACE          # Don't record an entry starting with a space.
+setopt HIST_NO_STORE              # Don't store history commands
+setopt HIST_REDUCE_BLANKS         # Remove superfluous blanks before recording entry.
+setopt HIST_SAVE_NO_DUPS          # Older duplicates are omitted.
+setopt INC_APPEND_HISTORY         # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY              # Share history between all sessions.
+export SHELL_SESSION_HISTORY=0           # Disable pert-terminal-session
+
+
+# Added by Antigravity
+export PATH="/Users/hoya/.antigravity/antigravity/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/hoya/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# fzf (replaces atuin: ctrl+r history, ctrl+t file search, alt+c cd)
+command -v fzf >/dev/null && eval "$(fzf --zsh)"
+
+# plugins
+[[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && \
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -r /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && \
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# lazysql
+inbrainsql() {
+    export SCHEMA=${1:-public}
+
+    echo "connect schema: $SCHEMA"
+    export DB_PASSWORD=`aws secretsmanager get-secret-value --region ap-northeast-2 --secret-id 'rds!cluster-63185338-8db3-4ae5-b546-17932cb48408' --query SecretString --output text | jq -r '.password' | tr -d '\n'`
+    dblab --user "postgres" --pass "${DB_PASSWORD}" --host "base-inbrain.cluster-c12ygaesskut.ap-northeast-2.rds.amazonaws.com" --port 5432 --db "postgres" --ssl "require" --driver "postgres" --schema "$SCHEMA"
+}
+
+# nohup
+run_bg() {
+  if [ $# -eq 0 ]; then
+    echo "usage: run_bg <command>"
+    return 1
+  fi
+
+  local name=$(echo "$1" | awk '{print $1}')
+  local ts=$(date +%Y%m%d_%H%M%S)
+  local log="/tmp/${name}_${ts}.log"
+
+  nohup "$@" > "$log" 2>&1 &
+
+  local pid=$!
+  echo "started: pid=$pid"
+  echo "log: $log"
+}
+export PATH="/Users/hoya/.config/shorebird/bin:$PATH"
+
+# Toolchains retained from the working local configuration.
+command -v rbenv >/dev/null && eval "$(rbenv init - zsh)"
+export NVM_DIR="$HOME/.nvm"
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+[[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+[[ -r "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"
+[[ -d "$HOME/go/bin" ]] && path+=("$HOME/go/bin")
+[[ -d "$HOME/.gem/bin" ]] && path+=("$HOME/.gem/bin")
+[[ -d "$HOME/.codeium/windsurf/bin" ]] && path+=("$HOME/.codeium/windsurf/bin")
+
+if [[ -d /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home ]]; then
+  export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
+  path+=("$JAVA_HOME/bin")
+fi
+
+export COPYFILE_DISABLE=1
+
+code() {
+  VSCODE_CWD="$PWD" open -n -b com.microsoft.VSCode --args "$@"
+}
