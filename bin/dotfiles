@@ -63,7 +63,7 @@ snapshot_packages() {
   local generated
   generated="$(mktemp "${TMPDIR:-/tmp}/dotfiles-brewfile.XXXXXX")"
   trap 'rm -f "$generated"' RETURN
-  brew bundle dump --force --file="$generated" >/dev/null
+  brew bundle dump --force --no-vscode --file="$generated" >/dev/null
   if [[ ! -f "$REPO_DIR/Brewfile" ]] || ! cmp -s "$generated" "$REPO_DIR/Brewfile"; then
     mv "$generated" "$REPO_DIR/Brewfile"
     say "updated: $REPO_DIR/Brewfile"

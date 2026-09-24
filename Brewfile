@@ -186,41 +186,44 @@ brew "zsh-autosuggestions"
 brew "hashicorp/tap/terraform", trusted: true
 # Image editing and design software
 cask "affinity"
-# App for managing battery charging. (Also installs a CLI on first use.)
-cask "battery"
 # Desktop password and login vault
 cask "bitwarden"
+# OpenAI's official ChatGPT desktop app
+cask "chatgpt"
 # Desktop pet that reacts to AI coding agents
 cask "clawd-on-desk"
-# Status monitoring
-cask "eul"
+# Server and cloud storage browser
+cask "cyberduck"
+# Databases and SQL IDE
+cask "datagrip"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
 # Web browser
 cask "google-chrome"
 # Windows manager and desktop organiser
 cask "hazeover"
 # Menu bar calendar
 cask "itsycal"
-# Menu bar manager
-cask "jordanbaird-ice"
 # Find shortcuts for any installed application
 cask "keyclu"
 # GameStream client
 cask "moonlight"
+# App to write, plan, collaborate, and get organised
+cask "notion"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
 # Get up and running with large language models locally
 cask "ollama-app"
 # Replacement for Docker Desktop
 cask "orbstack"
 # Store SSH keys in the Secure Enclave
 cask "secretive"
-# Git GUI client
-cask "sourcegit"
-# AI image upscaler
-cask "upscayl"
+# Open-source code editor
+cask "visual-studio-code"
 mas "CotEditor", id: 1024640650
 mas "Hidden Bar", id: 1452453066
 mas "RunCat", id: 1429033973
 mas "Slack", id: 803453959
-mas "Transporter", id: 1450874784
 mas "Windows App", id: 1295203466
 mas "WireGuard", id: 1451685025
 mas "듀얼 카카오톡", id: 869223134

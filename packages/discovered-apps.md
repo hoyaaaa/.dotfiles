@@ -5,26 +5,14 @@ installed but are not currently represented by Homebrew Cask or the Mac App Stor
 Review them with `packages/manual.md`; do not add secrets or installer files here.
 
 - Burly.app
-- ChatGPT.app
-- Chrome Remote Desktop Host Uninstaller.app
-- Cyberduck.app
-- DBeaver.app
-- DataGrip.app
-- Figma.app
-- Ghostty.app
 - HOP.app
 - Karabiner-Elements.app
 - Karabiner-EventViewer.app
-- Keka.app
 - Logi Options.app
 - Microsoft Excel.app
 - Microsoft PowerPoint.app
 - Microsoft Word.app
-- Notion.app
-- Obsidian.app
-- Redis Insight.app
 - Tailscale.app
 - TrackPointD.app
-- Visual Studio Code.app
 - Vorssaint.app
 - ego lite.app
