@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-LOCK_DIR="${TMPDIR:-/tmp}/com.hoyaaaa.dotfiles-maintenance.lock"
+LOCK_DIR="${TMPDIR:-/tmp}/com.hoyaaaa.dotfiles-sync.lock"
 LOG_DIR="$HOME/Library/Logs"
 LOG_FILE="$LOG_DIR/dotfiles-update.log"
 

@@ -5,7 +5,7 @@ set -Eeuo pipefail
 cat >/dev/null || true
 
 REPO_DIR="$HOME/.dotfiles"
-LOCK_DIR="${TMPDIR:-/tmp}/com.hoyaaaa.dotfiles-codex-sync.lock"
+LOCK_DIR="${TMPDIR:-/tmp}/com.hoyaaaa.dotfiles-sync.lock"
 LOG_DIR="$HOME/Library/Logs"
 LOG_FILE="$LOG_DIR/dotfiles-sync.log"
 
