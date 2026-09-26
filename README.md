@@ -42,7 +42,7 @@ secret store for personal, company, and project use.
 
 - `install` applies managed files with chezmoi and registers weekly maintenance.
 - `bootstrap` prepares a new Mac from the restored age key.
-- `update` updates Homebrew, pipx, uv, npm, and rustup packages that are installed.
+- `update` applies remote managed configuration, then updates Homebrew, pipx, uv, npm, and rustup packages that are installed.
 - `packages-snapshot` refreshes `Brewfile` from the current Homebrew state.
 - `apps-snapshot` audits app bundles not represented by Homebrew Cask or the Mac App Store.
 
@@ -55,13 +55,15 @@ secret store for personal, company, and project use.
 - The global `manual-software-inventory` Codex skill updates the right inventory whenever software is installed, downloaded, removed, or audited.
 - Secrets live in `~/.config/chezmoi-secrets/secrets.json`; only its age-encrypted source is committed.
 - User-maintained global Codex skills and hooks are restored by chezmoi. Built-in runtime skills remain owned by Codex and installed apps.
-- The Codex `Stop` hook refreshes both package and app snapshots before its secret scan, signed commit, and push.
+- `.agents/skills/ego-browser` is a chezmoi-managed symlink to Ego's app-owned skill; the app-managed target is not re-added to dotfiles.
+- The Codex `Stop` hook re-adds managed Codex files and refreshes both package and app snapshots before its secret scan, signed commit, push, and apply.
 
 ## Automation
 
-- A global Codex `Stop` hook refreshes `Brewfile` and the unmanaged app audit after
-  software changes, then commits and pushes tracked dotfiles changes.
-- `launchd` runs package maintenance every Sunday at 10:00 local time.
+- A global Codex `Stop` hook re-adds managed Codex files and refreshes `Brewfile`
+  and the unmanaged app audit after software changes, then commits, pushes, and
+  applies tracked dotfiles changes.
+- `launchd` runs package maintenance every Monday at 10:00 local time.
 - Weekly maintenance commits tracked configuration and `Brewfile`, rebases, and pushes to `origin`.
 - Untracked files are never included in the automatic commit.
 - Update logs are written to `~/Library/Logs/dotfiles-update.log`.

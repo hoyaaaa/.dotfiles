@@ -16,3 +16,12 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
 - Batch already-determined tool actions into one model turn instead of repeatedly deciding the next mechanical step.
 - For durable or resumable automation, record explicit `started`, `running`, `completed`, and `failed` states; do not add this machinery to short-lived work.
 - Enforce permissions and safety through deterministic environment or sandbox controls rather than relying only on prompts or agent judgment.
+
+## Browser routing
+
+- A URL alone does not imply ego-browser. First use a capable CLI, API, fetch,
+  or direct HTTP request when that is more efficient for the task.
+- Use ego-browser when interactive browser work, visual inspection, or browser
+  session state is genuinely needed, or when the user explicitly requests it.
+- The `.agents/skills/ego-browser` target is app-managed; do not re-add its
+  runtime contents to chezmoi. Keep user-owned routing policy here.
