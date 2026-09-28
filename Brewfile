@@ -182,12 +182,12 @@ brew "zsh-autosuggestions"
 brew "hashicorp/tap/terraform", trusted: true
 # Image editing and design software
 cask "affinity"
+# Web browser with built-in AI assistant
+cask "aside"
 # Desktop password and login vault
 cask "bitwarden"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
-# Desktop pet that reacts to AI coding agents
-cask "clawd-on-desk"
 # Server and cloud storage browser
 cask "cyberduck"
 # Databases and SQL IDE
@@ -248,5 +248,11 @@ go "github.com/sqlc-dev/sqlc/cmd/sqlc"
 go "honnef.co/go/tools/cmd/staticcheck"
 go "github.com/swaggo/swag/cmd/swag"
 go "github.com/wailsapp/wails/v2/cmd/wails"
+npm "@google/gemini-cli"
 npm "corepack"
 npm "localtunnel"
+npm "n"
+npm "node-gyp"
+npm "pm2"
+npm "tsc"
+npm "wrangler"
