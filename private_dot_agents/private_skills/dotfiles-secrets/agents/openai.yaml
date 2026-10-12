@@ -1,4 +1,4 @@
 interface:
   display_name: "Dotfiles Secrets"
-  short_description: "Manage age-encrypted secrets with chezmoi"
-  default_prompt: "Use $dotfiles-secrets to manage one of my secrets safely."
+  short_description: "Reuse saved credentials and manage encrypted secrets"
+  default_prompt: "Use $dotfiles-secrets to check saved credentials before asking me for a password."

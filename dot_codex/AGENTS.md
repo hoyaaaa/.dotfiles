@@ -45,3 +45,5 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
 - Use `dotfiles-config` for global settings and user-owned skills, `dotfiles-software` for software inventory, and `dotfiles-secrets` for secrets. After changes, refresh their chezmoi source and run `~/.dotfiles/bin/dotfiles snapshot`; never include secrets as plaintext or app-owned files.
 
 - Dotfiles-specific exception explicitly authorized by the user: reviewed dotfiles updates may be signed and pushed directly to `main` by the Codex automation via `~/.dotfiles/bin/dotfiles sync`. Preserve the main/develop restriction for other repositories.
+
+- Before requesting a password or API key for authorized work, use `dotfiles-secrets` to check existing authentication and stored entry paths. Reuse a matching saved credential privately; ask only about missing credentials, rejected credentials, genuinely new authentication, or ambiguous account/environment selection. Never expose secret values in model context or tool output.
