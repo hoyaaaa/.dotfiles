@@ -21,22 +21,8 @@ trap 'rmdir "$LOCK_DIR"' EXIT
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.local/bin:$PATH"
 printf '\n[%s] package update started\n' "$(date '+%F %T')"
 
-apply_managed_agents() {
-  command -v chezmoi >/dev/null 2>&1 || return 0
-  chezmoi --source "$REPO_DIR" apply \
-    --force --no-tty --skip-secrets \
-    "$HOME/.codex" "$HOME/.agents"
-}
-
-branch="$(git -C "$REPO_DIR" branch --show-current)"
-branch="${branch:-main}"
-remote_sync=0
-if git -C "$REPO_DIR" pull --rebase --autostash origin "$branch"; then
-  remote_sync=1
-  apply_managed_agents
-else
-  echo 'Remote synchronization skipped because the rebase did not complete.'
-fi
+# Capture live settings before maintenance; remote configuration is applied explicitly.
+"$REPO_DIR/bin/dotfiles" snapshot
 
 if command -v brew >/dev/null 2>&1; then
   brew update
@@ -62,17 +48,5 @@ fi
 
 "$REPO_DIR/bin/dotfiles" packages-snapshot --quiet
 "$REPO_DIR/bin/dotfiles" apps-snapshot --quiet
-
-# Synchronize only files that are already tracked, plus the package manifest.
-# New untracked files are deliberately ignored so an accidental secret cannot
-# be published merely by placing it in the repository directory.
-if (( remote_sync )); then
-  git -C "$REPO_DIR" add -u
-  git -C "$REPO_DIR" add -- Brewfile
-  if ! git -C "$REPO_DIR" diff --cached --quiet; then
-    git -C "$REPO_DIR" commit -m "chore: sync dotfiles $(date +%F)"
-  fi
-  git -C "$REPO_DIR" push origin "$branch"
-fi
 
 printf '[%s] package update completed\n' "$(date '+%F %T')"

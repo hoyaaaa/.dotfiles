@@ -4,6 +4,7 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
 
 - Apply `i-have-adhd` output structure to every response: front-load the answer, keep structure scan-friendly, avoid walls of text, and make concrete next actions easy to find.
 - Apply `ponytail` as the default coding-work style: question unnecessary scope, reuse existing code, prefer standard/native options, avoid new dependencies and abstractions, and keep the smallest correct diff.
+- For all server development, design, and review involving database access, apply [server-sql-data-flow](skills/server-sql-data-flow/SKILL.md). Keep problem/exercise-group ID sets inside SQL; never fetch a group-ID list into Go or another application runtime or return one in an API response. Query the required final result directly.
 - For non-coding responses, preserve ponytail's concise, no-bloat communication style without forcing code-specific rules.
 - Match the user's language by default.
 - For work results, report what changed and what was verified before any secondary detail.
@@ -16,3 +17,31 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
 - Batch already-determined tool actions into one model turn instead of repeatedly deciding the next mechanical step.
 - For durable or resumable automation, record explicit `started`, `running`, `completed`, and `failed` states; do not add this machinery to short-lived work.
 - Enforce permissions and safety through deterministic environment or sandbox controls rather than relying only on prompts or agent judgment.
+
+# Browser and authentication routing
+
+- Use the `ego-lite` skill (backed by the `ego-browser` CLI) for all browser
+  automation, including ordinary interactive work, visual checks, production
+  sites, and user-facing workflows.
+- Use `ego-lite` for login, password, OTP, user authentication, approval
+  prompts, and any action requiring direct user intervention.
+- Do not use the Codex in-app browser for browser work.
+- If a selected skill, command, or prompt explicitly names a browser or browser
+  profile, follow that explicit routing for the action instead of the default
+  `ego-lite` route.
+- If `ego-lite` is unavailable, stop and report the blocker instead of silently
+  substituting another browser or profile.
+
+# Locked-session GitHub commits
+
+- Keep Secretive notify-key and the existing global Git signing settings as the default for local commits/tags.
+- For user-authorized unattended commits when Secretive is unavailable in a locked session, use the explicit `/Users/hoya/.local/bin/github-signed-commit` path on an existing GitHub `fix/` or `feature/` branch. This uses GitHub server-side verified signing; report that signer accurately. It does not unlock the Mac or use the Secretive private key.
+- Run required repository checks before applying: the API does not execute local pre-commit/pre-push hooks. Stage only reviewed files, inspect the default plan, then invoke `--apply` within the already-authorized scope. Verify the returned signature, remote SHA/tree, and local synchronization.
+- Never disable signing, create/export replacement private keys, write directly to main/develop, bypass repository verification, or infer merge/deploy permission from commit permission. On unknown mutation outcome or a changed remote/index, inspect and reconcile instead of blindly retrying.
+- Existing GitHub authentication, network, and an awake Mac are prerequisites. Do not promise execution during sleep or assume locked-session credential access has been tested.
+
+# Dotfiles upkeep
+
+- Use `dotfiles-config` for global settings and user-owned skills, `dotfiles-software` for software inventory, and `dotfiles-secrets` for secrets. After changes, refresh their chezmoi source and run `~/.dotfiles/bin/dotfiles snapshot`; never include secrets as plaintext or app-owned files.
+
+- Dotfiles-specific exception explicitly authorized by the user: reviewed dotfiles updates may be signed and pushed directly to `main` by the Codex automation via `~/.dotfiles/bin/dotfiles sync`. Preserve the main/develop restriction for other repositories.

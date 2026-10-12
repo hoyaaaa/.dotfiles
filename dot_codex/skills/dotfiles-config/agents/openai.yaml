@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dotfiles Config"
+  short_description: "Maintain global settings and chezmoi source files"
+  default_prompt: "Use $dotfiles-config to update my global configuration."

@@ -1,6 +1,6 @@
 ---
 name: aws-sso-chrome-login
-description: Log in to AWS IAM Identity Center with the profile in AWS_DEFAULT_PROFILE and open the SSO verification URL in the user's Chrome profile named "창호". Use only when an AWS CLI command requiring that profile fails because SSO credentials are missing or expired.
+description: Log in to AWS IAM Identity Center with the profile in AWS_DEFAULT_PROFILE and open the SSO verification URL in the user's Chrome profile named "회사". Use only when an AWS CLI command requiring that profile fails because SSO credentials are missing or expired.
 ---
 
 # AWS SSO login in the user's Chrome profile
@@ -19,7 +19,7 @@ python3 /Users/hoya/.codex/skills/aws-sso-chrome-login/scripts/aws_sso_chrome_lo
 
 The helper requires `AWS_DEFAULT_PROFILE`. It runs `aws sso login --profile
 "$AWS_DEFAULT_PROFILE" --no-browser`, detects the authorization URL, and opens
-that URL in the Chrome profile whose visible name is `창호`. It waits for the
+that URL in the Chrome profile whose visible name is `회사`. It waits for the
 AWS CLI process to finish, so the command only succeeds after the SSO flow is
 complete.
 
@@ -28,7 +28,7 @@ Rules:
 - Do not invoke the browser login proactively or on every AWS request. Reuse valid AWS CLI credentials until AWS reports that SSO authentication is required.
 - Never invent or silently substitute an AWS profile. If `AWS_DEFAULT_PROFILE`
   is unset, stop and ask for it.
-- Resolve the Chrome profile from Chrome's local profile metadata; if `창호`
+- Resolve the Chrome profile from Chrome's local profile metadata; if `회사`
   is not present, stop rather than opening the URL in another profile.
 - Do not pass credentials, tokens, or the authorization URL through shell
   history, files, or chat. The helper keeps the URL in memory and opens it

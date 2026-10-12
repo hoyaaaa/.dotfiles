@@ -1,9 +1,9 @@
 ---
-name: chezmoi-secrets
+name: dotfiles-secrets
 description: Manage passwords, API keys, notes, and other local secrets in the age-encrypted chezmoi store. Use when the user asks to store, organize, list, copy, update, or remove a secret for personal, company, or project use. Do not use for hosted secret managers.
 ---
 
-# Chezmoi Secrets
+# Dotfiles Secrets
 
 Use `~/.config/chezmoi-secrets/secrets.json` as the local source of truth. Its repository copy is encrypted with age. Use `scripts/secrets.sh` for every operation.
 

@@ -113,6 +113,8 @@ Usage: dotfiles <command>
   bootstrap          Install packages from Brewfile and apply with chezmoi
   install            Apply with chezmoi and enable weekly maintenance
   packages-snapshot  Refresh Brewfile from installed packages
+  sync               Capture, validate, sign, commit, and push tracked changes to main
+  snapshot           Capture managed settings and refresh inventories locally
   status             Show unmanaged links, repository changes, and outdated packages
   update             Update installed package managers now
 EOF
@@ -142,6 +144,12 @@ case "${1:-}" in
   packages-snapshot)
     [[ "${2:-}" == "--quiet" ]] && QUIET=1
     snapshot_packages
+    ;;
+  sync)
+    exec "$REPO_DIR/scripts/codex-sync.sh" --publish
+    ;;
+  snapshot)
+    exec "$REPO_DIR/scripts/codex-sync.sh"
     ;;
   status)
     show_status

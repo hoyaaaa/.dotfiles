@@ -1,9 +1,9 @@
 ---
-name: manual-software-inventory
+name: dotfiles-software
 description: Maintain the user's recoverable Mac software inventory when installing, downloading, removing, auditing, or documenting apps and tools that may not be managed by Homebrew or the Mac App Store.
 ---
 
-# Manual Software Inventory
+# Dotfiles Software
 
 Use `/Users/hoya/.dotfiles` as the source of truth.
 

@@ -3,13 +3,14 @@ tap "hashicorp/tap"
 tap "heroku/brew"
 tap "homebrew/services"
 tap "localstack/tap"
+tap "silver-flight-group/tap"
 tap "ybeapps/sourcegit"
 # Simple, modern, secure file encryption
 brew "age"
 # Codec library for encoding and decoding AV1 video streams
 brew "aom"
 # Cryptography and SSL/TLS Toolkit
-brew "openssl@3"
+brew "openssl@3", link: true
 # Download with resuming and segmented downloading
 brew "aria2"
 # Automatically restart SSH sessions and tunnels
@@ -146,6 +147,8 @@ brew "rbenv"
 brew "ripgrep"
 # Display and control your Android device
 brew "scrcpy"
+# SQLite extension providing 256-bit AES encryption
+brew "sqlcipher"
 # Non-interactive SSH password auth
 brew "sshpass"
 # Cross-shell prompt for astronauts
@@ -222,10 +225,14 @@ cask "obsidian"
 cask "ollama-app"
 # Replacement for Docker Desktop
 cask "orbstack"
+# Open source virtual/remote desktop application
+cask "rustdesk"
 # Store SSH keys in the Secure Enclave
 cask "secretive"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
+# To-do list
+cask "todoist-app"
 # Open-source code editor
 cask "visual-studio-code"
 # Menu bar toolkit with keep-awake, system monitor and volume mixer

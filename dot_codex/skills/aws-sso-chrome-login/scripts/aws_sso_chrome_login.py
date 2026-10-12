@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 
-DEFAULT_CHROME_PROFILE = "창호"
+DEFAULT_CHROME_PROFILE = "회사"
 URL_RE = re.compile(r"https?://[^\s\"'<>]+")
 
 
@@ -98,7 +98,7 @@ def main() -> int:
     parser.add_argument(
         "--chrome-profile",
         default=os.environ.get("AWS_SSO_CHROME_PROFILE", DEFAULT_CHROME_PROFILE),
-        help='visible Chrome profile name (default: "창호")',
+        help='visible Chrome profile name (default: "회사")',
     )
     parser.add_argument("--dry-run", action="store_true", help="validate profile discovery only")
     args = parser.parse_args()

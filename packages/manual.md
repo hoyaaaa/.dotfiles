@@ -38,6 +38,13 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 - Restore: follow the official installation guide, then authenticate as required.
 - Verify: `shorebird --version`
 
+## AWS Session Manager plugin
+
+- Source: https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html
+- Reason: the official Homebrew Cask requires a system installer with sudo; this machine uses the official package's binary at `~/.local/bin/session-manager-plugin` instead.
+- Restore: fetch the official `session-manager-plugin` Cask package, expand it with `pkgutil --expand-full`, and install its binary to `~/.local/bin/session-manager-plugin` with mode `755`.
+- Verify: `session-manager-plugin --version`
+
 ## Recovery-only setup
 
 - Restore `~/.config/chezmoi/key.txt` from the Apple Passwords entry named `chezmoi age recovery key`, then set mode `600`.

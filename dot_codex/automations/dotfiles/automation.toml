@@ -1,0 +1,10 @@
+version = 1
+id = "dotfiles"
+kind = "heartbeat"
+name = "Dotfiles 최신화"
+prompt = "dotfiles-config와 secretive 스킬을 적용한다. 사용자는 이 dotfiles 저장소의 main 직접 서명 커밋·푸시를 명시적으로 허용했다. 매 실행 시 /Users/hoya/.dotfiles/bin/dotfiles sync를 실행하여 기존 chezmoi 관리 설정과 앱·패키지 목록을 수집하고, 검증·시크릿 검사·Secretive notify-key 서명 커밋·origin main 푸시·로컬/원격 SHA 확인까지 완료한다. ~/.local/state/dotfiles/snapshot-state.json에서 완료 또는 실패를 확인한다. 정상 실행과 변경 없음은 조용히 유지한다. 비밀 값을 출력하거나 새 파일을 무조건 추가하지 않는다. 원격이 앞서거나 충돌, 서명 실패, 기존 staged 변경, 시크릿 검사 실패가 발생하면 force push나 서명 우회 없이 중단하고 필요한 조치를 알린다. main 금지 규칙의 예외는 이 dotfiles 저장소에만 적용한다."
+status = "ACTIVE"
+rrule = "FREQ=HOURLY;INTERVAL=1"
+target_thread_id = "01a1309b-68a2-75e3-a2b7-e4fe5e5d0127"
+created_at = 1791817279633
+updated_at = 1791817494555

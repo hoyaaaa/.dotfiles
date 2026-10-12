@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dotfiles Software"
+  short_description: "Track software that package managers cannot restore"
+  default_prompt: "Use $dotfiles-software to update my software inventory."

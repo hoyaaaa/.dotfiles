@@ -42,7 +42,9 @@ secret store for personal, company, and project use.
 
 - `install` applies managed files with chezmoi and registers weekly maintenance.
 - `bootstrap` prepares a new Mac from the restored age key.
-- `update` applies remote managed configuration, then updates Homebrew, pipx, uv, npm, and rustup packages that are installed.
+- `snapshot` refreshes managed settings and inventories locally.
+- `sync` also validates, signs, commits, and pushes tracked changes directly to main.
+- `update` captures local managed configuration, then updates Homebrew, pipx, uv, npm, and rustup packages that are installed.
 - `packages-snapshot` refreshes `Brewfile` from the current Homebrew state.
 - `apps-snapshot` audits app bundles not represented by Homebrew Cask or the Mac App Store.
 
@@ -52,21 +54,22 @@ secret store for personal, company, and project use.
 - `Brewfile` is the reproducible source of truth for Homebrew, Cask, and Mac App Store software.
 - `packages/manual.md` documents direct downloads and recovery-only setup without storing installers or secrets.
 - `packages/discovered-apps.md` is generated from `/Applications` and `~/Applications` and highlights apps that need review.
-- The global `manual-software-inventory` Codex skill updates the right inventory whenever software is installed, downloaded, removed, or audited.
+- The global `dotfiles-software` Codex skill updates the right inventory whenever software is installed, downloaded, removed, or audited.
 - Secrets live in `~/.config/chezmoi-secrets/secrets.json`; only its age-encrypted source is committed.
 - User-maintained global Codex skills and hooks are restored by chezmoi. Built-in runtime skills remain owned by Codex and installed apps.
 - `.agents/skills/ego-browser` is a chezmoi-managed symlink to Ego's app-owned skill; the app-managed target is not re-added to dotfiles.
-- The Codex `Stop` hook re-adds managed Codex files and refreshes both package and app snapshots before its secret scan, signed commit, push, and apply.
+- `dotfiles-config` captures global settings; `dotfiles-secrets` manages encrypted secret values.
+- The Codex `SessionEnd` hook and hourly Codex automation refresh existing non-encrypted managed files and package/app inventories locally.
 
 ## Automation
 
-- A global Codex `Stop` hook re-adds managed Codex files and refreshes `Brewfile`
-  and the unmanaged app audit after software changes, then commits, pushes, and
-  applies tracked dotfiles changes.
-- `launchd` runs package maintenance every Monday at 10:00 local time.
-- Weekly maintenance commits tracked configuration and `Brewfile`, rebases, and pushes to `origin`.
-- Untracked files are never included in the automatic commit.
-- Update logs are written to `~/Library/Logs/dotfiles-update.log`.
+- The hourly Codex automation definition is restored from `.codex/automations/dotfiles/automation.toml`; execution history and runtime databases stay local.
+- `~/.dotfiles/bin/dotfiles snapshot` captures existing non-encrypted chezmoi-managed live files and refreshes package/app inventory. New files must be registered explicitly; encrypted secret values are updated through `dotfiles-secrets`.
+- Codex `SessionEnd` and an hourly Codex automation run this local snapshot. Snapshot logs are in `~/Library/Logs/dotfiles-sync.log`; lifecycle status (`started`, `running`, `completed`, `failed`) is in `~/.local/state/dotfiles/snapshot-state.json`.
+- Weekly package maintenance still runs Monday at 10:00 local time. It captures local configuration first and updates installed package managers.
+- The hourly Codex automation runs `~/.dotfiles/bin/dotfiles sync`: local snapshot, validation, secret scan, Secretive-signed commit, non-forced push directly to `main`, and remote SHA verification. This repository has the user’s explicit main-publication authorization.
+- Only tracked files are automatically staged. New files must first be reviewed and registered explicitly. Existing staged changes, remote divergence, secret scan failures, or signing failures stop publication without force-push or signing bypass.
+- Package maintenance logs are in `~/Library/Logs/dotfiles-update.log`.
 
 ## Security boundary
 
