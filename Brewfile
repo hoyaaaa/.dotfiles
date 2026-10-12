@@ -3,7 +3,7 @@ tap "hashicorp/tap"
 tap "heroku/brew"
 tap "homebrew/services"
 tap "localstack/tap"
-tap "silver-flight-group/tap"
+tap "silver-flight-group/tap", trusted: { formulae: ["kakaocli"] }
 tap "ybeapps/sourcegit"
 # Simple, modern, secure file encryption
 brew "age"
