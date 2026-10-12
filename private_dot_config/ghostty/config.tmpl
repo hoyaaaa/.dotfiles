@@ -1,5 +1,9 @@
+{{ if eq .chezmoi.os "darwin" }}
 macos-option-as-alt = true
 shell-integration = zsh
+{{ else }}
+shell-integration = detect
+{{ end }}
 font-family = D2Coding
 theme = Dracula
 mouse-hide-while-typing = true
@@ -21,5 +25,7 @@ keybind = ctrl+a>p=previous_tab
 
 keybind = alt+r=reload_config
 
+{{ if eq .chezmoi.os "darwin" }}
 window-save-state = always
+{{ end }}
 theme = Catppuccin Latte

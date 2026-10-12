@@ -18,7 +18,11 @@ set -g status-left "#[bold]#S #[default]| "
 # 오른쪽 상태 정보
 set -g status-right-length 200
 set -g status-left-length 60
+{{ if eq .chezmoi.os "darwin" }}
 set -g status-right "⌨ #(im-select | sed 's/.*ABC/EN/;s/.*Korean.2SetKorean/KO/') | git #(cd #{pane_current_path} 2>/dev/null && git rev-parse --abbrev-ref HEAD 2>/dev/null)#{?pane_in_mode, (copy),}#(cd #{pane_current_path} 2>/dev/null && git diff --quiet 2>/dev/null || echo '*') | load #(sysctl -n vm.loadavg | awk '{print $2}') | %Y-%m-%d %H:%M"
+{{ else }}
+set -g status-right "git #(cd #{pane_current_path} 2>/dev/null && git rev-parse --abbrev-ref HEAD 2>/dev/null)#{?pane_in_mode, (copy),}#(cd #{pane_current_path} 2>/dev/null && git diff --quiet 2>/dev/null || echo '*') | load #(cut -d' ' -f1 /proc/loadavg) | %Y-%m-%d %H:%M"
+{{ end }}
 
 # 창 제목 자동 갱신
 set -g set-titles on

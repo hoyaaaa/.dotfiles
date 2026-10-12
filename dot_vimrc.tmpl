@@ -118,9 +118,17 @@ let g:ale_linters = {
 \   'terraform': ['terraform', 'tflint'],
 \   'yaml': ['yamllint'],
 \}
+{{ if eq .chezmoi.os "darwin" }}
 let g:ale_python_black_executable = '/opt/homebrew/bin/black'
+{{ else }}
+let g:ale_python_black_executable = 'black'
+{{ end }}
 let g:ale_python_black_options = '--skip-string-normalization'
+{{ if eq .chezmoi.os "darwin" }}
 let g:ale_python_mypy_executable = '/opt/homebrew/bin/mypy'
+{{ else }}
+let g:ale_python_mypy_executable = 'mypy'
+{{ end }}
 let g:ale_python_mypy_options = ''
 
 " Airline (Status/tabline)

@@ -128,3 +128,7 @@ Ego 스킬은 앱 소유 경로를 가리키는 심볼릭 링크만 관리합니
 
 age identity는 `~/.config/chezmoi/key.txt`에만 두고 복구 사본은 Apple Passwords에 보관합니다.
 복호화한 시크릿, 개인 키, 인증 캐시, 인증서, 실행 로그와 히스토리는 커밋하지 않습니다.
+
+## 터미널·편집기 설정
+
+Ghostty, tmux, Vim은 chezmoi 템플릿으로 macOS 전용 옵션과 Linux 설정을 구분합니다. tmux Linux 상태바는 `/proc/loadavg`를 사용하고, Vim Linux 도구는 PATH에서 찾습니다. 테마·글꼴·키 설정은 기존 값을 유지합니다. WezTerm은 사용하지 않아 관리 대상에서 제거했습니다. 이 템플릿의 변경은 소스에 반영한 뒤 해당 파일만 적용합니다. `re-add`는 템플릿 파일 변경을 역으로 수집하지 않습니다.
