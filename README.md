@@ -132,3 +132,5 @@ age identity는 `~/.config/chezmoi/key.txt`에만 두고 복구 사본은 Apple 
 ## 터미널·편집기 설정
 
 Ghostty, tmux, Vim은 chezmoi 템플릿으로 macOS 전용 옵션과 Linux 설정을 구분합니다. tmux Linux 상태바는 `/proc/loadavg`를 사용하고, Vim Linux 도구는 PATH에서 찾습니다. 테마·글꼴·키 설정은 기존 값을 유지합니다. WezTerm은 사용하지 않아 관리 대상에서 제거했습니다. 이 템플릿의 변경은 소스에 반영한 뒤 해당 파일만 적용합니다. `re-add`는 템플릿 파일 변경을 역으로 수집하지 않습니다.
+
+Codex 전역 지침과 `dotfiles-config` 스킬도 chezmoi 템플릿으로 OS별 운영 방식을 구분합니다. Fedora에서는 macOS 전용 Secretive·브라우저 라우팅·자동 동기화 지침과 소프트웨어 관리 스킬을 적용하지 않습니다. `dotfiles-secrets`의 클립보드 처리는 macOS의 `pbcopy`와 Linux의 `wl-copy`·`xclip`을 지원합니다.

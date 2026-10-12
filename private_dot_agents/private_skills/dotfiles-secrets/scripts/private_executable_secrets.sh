@@ -17,6 +17,19 @@ sync_store() {
   chezmoi add --encrypt "$store"
 }
 
+copy_secret() {
+  if command -v pbcopy >/dev/null 2>&1; then
+    base64 -D | pbcopy
+  elif command -v wl-copy >/dev/null 2>&1; then
+    base64 --decode | wl-copy
+  elif command -v xclip >/dev/null 2>&1; then
+    base64 --decode | xclip -selection clipboard
+  else
+    printf 'No supported clipboard command found (pbcopy, wl-copy, or xclip).\n' >&2
+    return 1
+  fi
+}
+
 command="${1:-}"
 case "$command" in
   list)
@@ -26,12 +39,12 @@ case "$command" in
   copy)
     [[ $# -eq 2 ]] || usage
     require_store
-    jq -er --arg path "$2" '.[$path]' "$store" | base64 -D | pbcopy
+    jq -er --arg path "$2" '.[$path]' "$store" | copy_secret
     printf 'Copied %s to the clipboard.\n' "$2"
     ;;
   set)
     [[ $# -eq 2 ]] || usage
-    [[ ! -t 0 ]] || { printf 'Pipe the value on stdin, for example: pbpaste | %s set %q\n' "$0" "$2" >&2; exit 2; }
+    [[ ! -t 0 ]] || { printf 'Pipe the value on stdin: <clipboard-command> | %s set %q\n' "$0" "$2" >&2; exit 2; }
     mkdir -p "$(dirname "$store")"
     [[ -f "$store" ]] || printf '{}\n' >"$store"
     chmod 600 "$store"

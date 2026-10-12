@@ -18,6 +18,7 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
 - For durable or resumable automation, record explicit `started`, `running`, `completed`, and `failed` states; do not add this machinery to short-lived work.
 - Enforce permissions and safety through deterministic environment or sandbox controls rather than relying only on prompts or agent judgment.
 
+{{ if eq .chezmoi.os "darwin" }}
 # Browser and authentication routing
 
 - Use the `ego-lite` skill (backed by the `ego-browser` CLI) for all browser
@@ -31,7 +32,9 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
   `ego-lite` route.
 - If `ego-lite` is unavailable, stop and report the blocker instead of silently
   substituting another browser or profile.
+{{ end }}
 
+{{ if eq .chezmoi.os "darwin" }}
 # Locked-session GitHub commits
 
 - Keep Secretive notify-key and the existing global Git signing settings as the default for local commits/tags.
@@ -39,11 +42,18 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
 - Run required repository checks before applying: the API does not execute local pre-commit/pre-push hooks. Stage only reviewed files, inspect the default plan, then invoke `--apply` within the already-authorized scope. Verify the returned signature, remote SHA/tree, and local synchronization.
 - Never disable signing, create/export replacement private keys, write directly to main/develop, bypass repository verification, or infer merge/deploy permission from commit permission. On unknown mutation outcome or a changed remote/index, inspect and reconcile instead of blindly retrying.
 - Existing GitHub authentication, network, and an awake Mac are prerequisites. Do not promise execution during sleep or assume locked-session credential access has been tested.
+{{ end }}
 
 # Dotfiles upkeep
 
+{{ if eq .chezmoi.os "darwin" }}
 - Use `dotfiles-config` for global settings and user-owned skills, `dotfiles-software` for software inventory, and `dotfiles-secrets` for secrets. After changes, refresh their chezmoi source and run `~/.dotfiles/bin/dotfiles snapshot`; never include secrets as plaintext or app-owned files.
+{{ else }}
+- Use `dotfiles-config` for global settings and user-owned skills and `dotfiles-secrets` for secrets. Inspect and apply exact chezmoi targets; the software inventory and `bin/dotfiles` automation are currently macOS-only. Never include secrets as plaintext or app-owned files.
+{{ end }}
 
+{{ if eq .chezmoi.os "darwin" }}
 - Dotfiles-specific exception explicitly authorized by the user: reviewed dotfiles updates may be signed and pushed directly to `main` by the Codex automation via `~/.dotfiles/bin/dotfiles sync`. Preserve the main/develop restriction for other repositories.
+{{ end }}
 
 - Before requesting a password or API key for authorized work, use `dotfiles-secrets` to check existing authentication and stored entry paths. Reuse a matching saved credential privately; ask only about missing credentials, rejected credentials, genuinely new authentication, or ambiguous account/environment selection. Never expose secret values in model context or tool output.

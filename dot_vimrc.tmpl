@@ -175,7 +175,11 @@ let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeIgnore=['\.git$', '\.svn$', '\.hg$', '\.DS_Store$', '\.devcontainer$', '\.vscode$', '__pycache__$', '\.terraform$', '\.terraform\.lock\.hcl$', '\.terragrunt-cache$', '\.pyc$']
 
 " WebDevIcons (File type icons)
+{{ if eq .chezmoi.os "darwin" }}
 let g:WebDevIconsOS='Darwin'
+{{ else }}
+let g:WebDevIconsOS='Linux'
+{{ end }}
 let g:webdevicons_enable=1
 let g:webdevicons_enable_nerdtree=1
 let g:WebDevIconsUnicodeDecorateFileNodes=1

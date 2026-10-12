@@ -1,11 +1,20 @@
 {{ if eq .chezmoi.os "darwin" }}
 macos-option-as-alt = true
 shell-integration = zsh
+font-family = D2Coding
+theme = Catppuccin Latte
 {{ else }}
 shell-integration = detect
+font-family = Jetendard
+font-size = 12
+theme = Catppuccin Mocha
+window-padding-x = 10
+window-padding-y = 8
+window-padding-balance = true
+gtk-titlebar = true
+cursor-style = block
+cursor-style-blink = false
 {{ end }}
-font-family = D2Coding
-theme = Dracula
 mouse-hide-while-typing = true
 scrollback-limit = 1000000
 
@@ -28,4 +37,3 @@ keybind = alt+r=reload_config
 {{ if eq .chezmoi.os "darwin" }}
 window-save-state = always
 {{ end }}
-theme = Catppuccin Latte
