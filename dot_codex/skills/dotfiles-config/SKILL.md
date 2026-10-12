@@ -20,4 +20,3 @@ Use `/Users/hoya/.dotfiles` as the chezmoi source of truth. Inspect `bin/dotfile
 - 대부분 공통이고 몇 줄만 다르면 `.tmpl`에서 OS별 값을 렌더링한다.
 - 프로그램이 런타임 OS 분기를 잘 지원하면 프로그램 자체 분기를 사용한다. 같은 조건을 템플릿에 중복하지 않는다.
 - 템플릿은 `chezmoi re-add`로 실제 파일 변경을 역수집할 수 없으므로, 변경을 템플릿 소스에 반영하고 해당 대상만 적용한다.
-
