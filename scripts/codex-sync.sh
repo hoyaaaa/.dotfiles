@@ -26,6 +26,17 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.local/bin:$PATH"
 write_state started
 printf '[%s] snapshot started\n' "$(date '+%F %T')"
 write_state running
+# These wrappers contain only a macOS source fragment. Preserve automatic
+# capture of live edits even though chezmoi re-add skips template files.
+if [[ "$(uname -s)" == Darwin ]]; then
+  for name in bashrc gitconfig profile zshrc; do
+    live="$HOME/.$name"
+    fragment="$REPO_DIR/.chezmoitemplates/darwin/dot_$name"
+    if [[ -f "$live" && -f "$fragment" ]] && ! cmp -s "$live" "$fragment"; then
+      cp "$live" "$fragment"
+    fi
+  done
+fi
 # Preserve encryption boundaries; secret updates use dotfiles-secrets instead.
 chezmoi --source "$REPO_DIR" re-add --exclude encrypted --no-tty
 "$REPO_DIR/bin/dotfiles" packages-snapshot --quiet

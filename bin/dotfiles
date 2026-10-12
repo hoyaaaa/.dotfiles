@@ -8,6 +8,10 @@ CHEZMOI_CONFIG="$CHEZMOI_CONFIG_DIR/chezmoi.toml"
 AGE_IDENTITY="$CHEZMOI_CONFIG_DIR/key.txt"
 AGE_RECIPIENT="age1dhtjznmkvu26fq97sxnnz6mutvh408qetn5mwqsqfrd9g9elwgfqsc76uf"
 QUIET=0
+[[ "$(uname -s)" == Darwin ]] || {
+  printf 'Only macOS commands are implemented. See docs/platform-plan.md for Fedora/Windows.\n' >&2
+  exit 1
+}
 
 say() {
   (( QUIET )) || printf '%s\n' "$*"
@@ -64,9 +68,9 @@ snapshot_packages() {
   generated="$(mktemp "${TMPDIR:-/tmp}/dotfiles-brewfile.XXXXXX")"
   trap 'rm -f "$generated"' RETURN
   brew bundle dump --force --no-vscode --file="$generated" >/dev/null
-  if [[ ! -f "$REPO_DIR/Brewfile" ]] || ! cmp -s "$generated" "$REPO_DIR/Brewfile"; then
-    mv "$generated" "$REPO_DIR/Brewfile"
-    say "updated: $REPO_DIR/Brewfile"
+  if [[ ! -f "$REPO_DIR/packages/darwin/Brewfile" ]] || ! cmp -s "$generated" "$REPO_DIR/packages/darwin/Brewfile"; then
+    mv "$generated" "$REPO_DIR/packages/darwin/Brewfile"
+    say "updated: $REPO_DIR/packages/darwin/Brewfile"
   fi
   trap - RETURN
 }
@@ -76,7 +80,7 @@ snapshot_apps() {
   local generated
   generated="$(mktemp "${TMPDIR:-/tmp}/dotfiles-apps.XXXXXX")"
   trap 'rm -f "$generated"' RETURN
-  "$REPO_DIR/scripts/manual-apps-snapshot.sh" >"$generated"
+  "$REPO_DIR/scripts/darwin/manual-apps-snapshot.sh" >"$generated"
   if [[ ! -f "$target" ]] || ! cmp -s "$generated" "$target"; then
     mv "$generated" "$target"
     say "updated: $target"
@@ -133,7 +137,7 @@ case "${1:-}" in
     ensure_homebrew
     brew install age chezmoi
     configure_chezmoi
-    brew bundle install --no-upgrade --file="$REPO_DIR/Brewfile"
+    brew bundle install --no-upgrade --file="$REPO_DIR/packages/darwin/Brewfile"
     apply_config
     install_launch_agent
     ;;
@@ -155,7 +159,7 @@ case "${1:-}" in
     show_status
     ;;
   update)
-    exec "$REPO_DIR/scripts/update-packages.sh"
+    exec "$REPO_DIR/scripts/darwin/update-packages.sh"
     ;;
   *)
     usage

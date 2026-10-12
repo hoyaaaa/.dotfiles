@@ -1,6 +1,42 @@
 README.md
-Brewfile
 bin/**
 launchd/**
 packages/**
 scripts/**
+inventories/**
+docs/**
+
+{{ if ne .chezmoi.os "darwin" }}
+.aerospace.toml
+.finicky.js
+Library/**
+.config/karabiner/**
+.codex/hooks.json
+.codex/automations/**
+.codex/skills/secretive/**
+.codex/skills/aws-sso-chrome-login/**
+.agents/skills/ego-browser
+.gitallowedsigners
+.zprofile
+.bashrc
+.profile
+.zshrc
+.gitconfig
+.p10k.zsh
+.docker/**
+.aws/**
+.ssh/**
+.wakatime.cfg
+.boring.toml
+.netrc
+.pgpass
+{{ end }}
+{{ if ne .chezmoi.os "linux" }}
+.config/systemd/**
+{{ end }}
+{{ if eq .chezmoi.os "windows" }}
+.bashrc
+.profile
+.zshrc
+.tmux.conf
+{{ end }}

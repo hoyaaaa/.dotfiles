@@ -19,7 +19,7 @@ cleanup_index() {
 trap cleanup_index EXIT
 git diff --cached --check
 python3 "$REPO_DIR/scripts/check-staged.py"
-bash -n "$REPO_DIR/bin/dotfiles" "$REPO_DIR/scripts/codex-sync.sh" "$REPO_DIR/scripts/publish-dotfiles.sh" "$REPO_DIR/scripts/update-packages.sh"
+bash -n "$REPO_DIR/bin/dotfiles" "$REPO_DIR/scripts/codex-sync.sh" "$REPO_DIR/scripts/publish-dotfiles.sh" "$REPO_DIR/scripts/darwin/update-packages.sh"
 python3 "$REPO_DIR/scripts/tests/test_snapshot.py"
 python3 "$REPO_DIR/scripts/tests/test_staged.py"
 if ! git diff --cached --quiet; then

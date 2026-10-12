@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 LOCK_DIR="${TMPDIR:-/tmp}/com.hoyaaaa.dotfiles-sync.lock"
 LOG_DIR="$HOME/Library/Logs"
 LOG_FILE="$LOG_DIR/dotfiles-update.log"
@@ -26,7 +26,7 @@ printf '\n[%s] package update started\n' "$(date '+%F %T')"
 
 if command -v brew >/dev/null 2>&1; then
   brew update
-  brew bundle install --no-upgrade --file="$REPO_DIR/Brewfile"
+  brew bundle install --no-upgrade --file="$REPO_DIR/packages/darwin/Brewfile"
   brew upgrade
 fi
 

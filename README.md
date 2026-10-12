@@ -45,13 +45,13 @@ secret store for personal, company, and project use.
 - `snapshot` refreshes managed settings and inventories locally.
 - `sync` also validates, signs, commits, and pushes tracked changes directly to main.
 - `update` captures local managed configuration, then updates Homebrew, pipx, uv, npm, and rustup packages that are installed.
-- `packages-snapshot` refreshes `Brewfile` from the current Homebrew state.
+- `packages-snapshot` refreshes `packages/darwin/Brewfile` from the current Homebrew state.
 - `apps-snapshot` audits app bundles not represented by Homebrew Cask or the Mac App Store.
 
 ## Software inventory
 
 - Installation priority is Homebrew/Cask, then the Mac App Store, then a documented manual install.
-- `Brewfile` is the reproducible source of truth for Homebrew, Cask, and Mac App Store software.
+- `packages/darwin/Brewfile` is the reproducible source of truth for Homebrew, Cask, and Mac App Store software.
 - `packages/manual.md` documents direct downloads and recovery-only setup without storing installers or secrets.
 - `packages/discovered-apps.md` is generated from `/Applications` and `~/Applications` and highlights apps that need review.
 - The global `dotfiles-software` Codex skill updates the right inventory whenever software is installed, downloaded, removed, or audited.
@@ -80,3 +80,7 @@ histories, and logs remain local and must never be committed.
 
 The age identity is stored only at `~/.config/chezmoi/key.txt`; its recovery copy
 lives in Apple Passwords.
+
+## Platform separation
+
+macOS shell/Git source fragments live in `.chezmoitemplates/darwin`, package/app scripts in `scripts/darwin`, and the package manifest in `packages/darwin/Brewfile`. Public commands retain their existing paths. Fedora/Windows implementation and user validation are described in [the platform plan](docs/platform-plan.md). Non-macOS command execution is explicitly disabled until implemented.
