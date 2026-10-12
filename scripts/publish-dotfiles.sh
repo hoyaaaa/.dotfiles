@@ -6,7 +6,8 @@ cd "$REPO_DIR"
 [[ "$(git remote get-url origin)" == 'git@github.com:hoyaaaa/.dotfiles.git' ]] || { echo 'Unexpected dotfiles origin.' >&2; exit 1; }
 git diff --cached --quiet || { echo 'Existing staged changes: review before publishing.' >&2; exit 1; }
 /bin/sh "$HOME/.codex/skills/secretive/scripts/ensure-notify-key.sh"
-git fetch origin main
+# Use existing GitHub HTTPS authentication; commit signing still uses Secretive.
+git -c 'credential.helper=!gh auth git-credential' fetch https://github.com/hoyaaaa/.dotfiles.git main:refs/remotes/origin/main
 git merge-base --is-ancestor origin/main HEAD || { echo 'Remote main advanced or diverged: reconcile before publishing.' >&2; exit 1; }
 # New paths require review and registration; ordinary automatic sync stages tracked files only.
 git add -u
@@ -25,8 +26,8 @@ if ! git diff --cached --quiet; then
   git commit -S -m "chore: sync dotfiles $(date '+%F %T')"
 fi
 git verify-commit HEAD
-git push origin HEAD:main
+git -c 'credential.helper=!gh auth git-credential' push https://github.com/hoyaaaa/.dotfiles.git HEAD:main
 local_sha="$(git rev-parse HEAD)"
-remote_sha="$(git ls-remote origin refs/heads/main | awk '{print $1}')"
+remote_sha="$(git -c 'credential.helper=!gh auth git-credential' ls-remote https://github.com/hoyaaaa/.dotfiles.git refs/heads/main | awk '{print $1}')"
 [[ "$local_sha" == "$remote_sha" ]] || { echo 'Remote SHA changed; inspect before retrying.' >&2; exit 1; }
 printf 'Verified dotfiles main: %s\n' "$local_sha"
