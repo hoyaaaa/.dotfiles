@@ -49,3 +49,18 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 
 - Restore `~/.config/chezmoi/key.txt` from the Apple Passwords entry named `chezmoi age recovery key`, then set mode `600`.
 - Recreate or select the Secretive Secure Enclave key named `notify-key`. Its private key is intentionally non-exportable and is never stored here.
+
+## LM Studio headless runtime (llmster)
+
+- Source: https://lmstudio.ai/docs/developer/core/headless
+- Reason: LM Studio app is managed by Homebrew Cask, but its official headless runtime has no Homebrew formula or Mac App Store package.
+- Restore: follow the official llmster installation guide; pass `--no-modify-path` to the installer when the shell PATH is managed separately.
+- Storage: `~/.lmstudio/bin/lms`, `~/.lmstudio/llmster`; model weights live under `~/.lmstudio/models` and are re-downloaded.
+- Verify: `~/.lmstudio/bin/lms daemon status` and `~/.lmstudio/bin/lms server status`.
+
+## Qwen3.5 9B local model
+
+- Source: https://huggingface.co/lmstudio-community/Qwen3.5-9B-GGUF
+- Reason: model weights are downloaded separately from the LM Studio app and are not included in Brewfile.
+- Restore: use LM Studio to download `lmstudio-community/Qwen3.5-9B-GGUF` with `Q4_K_M` quantization (about 5.6 GB).
+- Verify: `~/.lmstudio/bin/lms ls` lists the model; `lms load` can load it.

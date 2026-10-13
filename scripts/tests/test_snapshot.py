@@ -3,6 +3,8 @@ import json
 import os
 from pathlib import Path
 import shutil
+import signal
+import time
 import subprocess
 import tempfile
 
@@ -13,6 +15,7 @@ with tempfile.TemporaryDirectory() as tmp:
     (repo / 'bin').mkdir(parents=True)
     (repo / 'scripts').mkdir()
     shutil.copy2(script, repo / 'scripts/codex-sync.sh')
+    shutil.copy2(script.parent / 'with-sync-lock.py', repo / 'scripts/with-sync-lock.py')
     (repo / 'dot_example').write_text('old\n')
     (home / '.example').write_text('new\n')
     # Invalid encrypted content must never be decrypted by a local snapshot.
@@ -39,4 +42,12 @@ with tempfile.TemporaryDirectory() as tmp:
     assert run.returncode == 7
     assert json.loads(state.read_text())['status'] == 'failed'
     assert not (state.parent / 'snapshot.lock').exists()
-print('PASS: live capture, encrypted exclusion, inventories, failure state, lock cleanup')
+    holder = subprocess.Popen(['python3', str(repo / 'scripts/with-sync-lock.py'), '-c', 'echo ready; exec sleep 60'], env=env, stdout=subprocess.PIPE, start_new_session=True)
+    assert holder.stdout.readline().strip() == b'ready'
+    busy = subprocess.run(['/bin/bash', str(repo / 'scripts/codex-sync.sh')], env=env)
+    assert busy.returncode == 0  # busy lock skips the failing helper
+    os.killpg(holder.pid, signal.SIGKILL)
+    holder.wait(timeout=5)
+    recovered = subprocess.run(['/bin/bash', str(repo / 'scripts/codex-sync.sh')], env=env)
+    assert recovered.returncode == 7  # interrupted owner released the kernel lock
+print('PASS: live capture, encrypted exclusion, inventories, failure state, interrupted-lock recovery')

@@ -30,3 +30,5 @@ Use `~/.config/chezmoi-secrets/secrets.json` as the local source of truth. Its r
 - Preserve existing paths. For new entries, use a clear hierarchy such as `<scope>/<service>/<environment-or-account>[/<field>]`.
 - After a successful set or remove, the helper refreshes the encrypted chezmoi source automatically.
 - Verify metadata or exit status only. If the user needs to view a value, tell them to copy it and paste it into the intended application privately.
+
+- For authorized dotfiles publication, use `$dotfiles-config` and `~/.dotfiles/bin/dotfiles sync` on macOS: validate and preserve local changes, integrate remote main, update managed user skills, then sign/push. A remote-ahead state is handled by pull/merge; actual conflicts or signing failures preserve work and stop.

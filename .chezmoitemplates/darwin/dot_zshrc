@@ -172,3 +172,7 @@ export COPYFILE_DISABLE=1
 code() {
   VSCODE_CWD="$PWD" open -n -b com.microsoft.VSCode --args "$@"
 }
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/hoya/.lmstudio/bin"
+# End of LM Studio CLI section

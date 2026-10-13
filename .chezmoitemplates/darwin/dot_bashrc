@@ -11,3 +11,7 @@ command -v atuin >/dev/null 2>&1 && eval "$(atuin init bash)"
 
 # Added by Antigravity CLI installer
 export PATH="/Users/hoya/.local/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/hoya/.lmstudio/bin"
+# End of LM Studio CLI section

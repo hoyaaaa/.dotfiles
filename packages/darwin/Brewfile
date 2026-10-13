@@ -10,7 +10,7 @@ brew "age"
 # Codec library for encoding and decoding AV1 video streams
 brew "aom"
 # Cryptography and SSL/TLS Toolkit
-brew "openssl@3", link: true
+brew "openssl@3"
 # Download with resuming and segmented downloading
 brew "aria2"
 # Automatically restart SSH sessions and tunnels
@@ -111,8 +111,6 @@ brew "net-snmp"
 brew "nmap"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
-# Create, run, and share large language models (LLMs)
-brew "ollama"
 # Development kit for the Java programming language
 brew "openjdk@17"
 # Swiss-army knife of markup format conversion
@@ -191,6 +189,8 @@ cask "aside"
 cask "bitwarden"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
+# OpenAI's coding agent that runs in your terminal
+cask "codex"
 # Server and cloud storage browser
 cask "cyberduck"
 # Databases and SQL IDE
@@ -209,6 +209,8 @@ cask "itsycal"
 cask "karabiner-elements"
 # Find shortcuts for any installed application
 cask "keyclu"
+# Discover, download, and run local LLMs
+cask "lm-studio"
 # Spreadsheet software
 cask "microsoft-excel"
 # Presentation software
@@ -221,8 +223,6 @@ cask "moonlight"
 cask "notion"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
-# Get up and running with large language models locally
-cask "ollama-app"
 # Replacement for Docker Desktop
 cask "orbstack"
 # Open source virtual/remote desktop application
@@ -257,6 +257,7 @@ go "github.com/swaggo/swag/cmd/swag"
 go "github.com/wailsapp/wails/v2/cmd/wails"
 npm "@google/gemini-cli"
 npm "corepack"
+npm "localtunnel"
 npm "n"
 npm "node-gyp"
 npm "pm2"

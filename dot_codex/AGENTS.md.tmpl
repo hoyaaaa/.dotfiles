@@ -57,3 +57,7 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
 {{ end }}
 
 - Before requesting a password or API key for authorized work, use `dotfiles-secrets` to check existing authentication and stored entry paths. Reuse a matching saved credential privately; ask only about missing credentials, rejected credentials, genuinely new authentication, or ambiguous account/environment selection. Never expose secret values in model context or tool output.
+
+- Dotfiles sync must preserve and validate local changes, create a signed commit when needed, then pull remote main with signature-preserving merge and update repository-managed global skills before pushing. Being behind remote is not itself an error. Stop only on actual conflicts, unrelated staged changes, failed checks, or failed authentication/signing; preserve work and never force-push.
+
+- 자동 동기화가 남긴 staged 변경은 HEAD와 index tree 지문으로 식별해 다음 실행에서 재검사·서명 커밋을 재개한다. 다른 작업의 staged 변경과 실제 충돌은 보존하며, 같은 실패는 상태가 바뀌거나 조치가 필요할 때만 알린다.

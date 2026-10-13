@@ -14,3 +14,5 @@ Use `/Users/hoya/.dotfiles` as the source of truth.
 5. Remove an inventory entry only after confirming the software was removed or is now represented in `packages/darwin/Brewfile`.
 
 Never commit installers, application bundles, license files, passwords, tokens, private keys, or copied secret values. Link to an official download page instead. Keep machine-specific notes out unless they are required to restore the setup.
+
+- For authorized dotfiles publication, use `$dotfiles-config` and `~/.dotfiles/bin/dotfiles sync` on macOS: validate and preserve local changes, integrate remote main, update managed user skills, then sign/push. A remote-ahead state is handled by pull/merge; actual conflicts or signing failures preserve work and stop.

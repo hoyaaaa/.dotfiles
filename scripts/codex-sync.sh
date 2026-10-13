@@ -4,13 +4,12 @@ set -Eeuo pipefail
 # Capture live settings; --publish also signs and pushes tracked changes to main.
 REPO_DIR="$HOME/.dotfiles"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
-LOCK_DIR="$STATE_DIR/snapshot.lock"
+if [[ "${DOTFILES_SYNC_LOCKED:-}" != "$$" ]]; then
+  exec python3 "$REPO_DIR/scripts/with-sync-lock.py" "$0" "$@"
+fi
 LOG_DIR="$HOME/Library/Logs"
 mkdir -p "$STATE_DIR" "$LOG_DIR"
 exec >>"$LOG_DIR/dotfiles-sync.log" 2>&1
-if ! mkdir "$LOCK_DIR" 2>/dev/null; then
-  exit 0
-fi
 write_state() {
   printf '{"status":"%s","updated_at":"%s"}\n' "$1" "$(date -u '+%FT%TZ')" >"$STATE_DIR/snapshot-state.json.tmp"
   mv "$STATE_DIR/snapshot-state.json.tmp" "$STATE_DIR/snapshot-state.json"
@@ -19,7 +18,6 @@ finish() {
   local code=$?
   if (( code )); then write_state failed; else write_state completed; fi
   printf '[%s] snapshot exit=%s\n' "$(date '+%F %T')" "$code"
-  rmdir "$LOCK_DIR"
 }
 trap finish EXIT
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.local/bin:$PATH"

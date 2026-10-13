@@ -70,7 +70,7 @@ Codex 자동화 설정에는 현재 채팅 ID가 포함되므로, 다른 Mac에�
 | `status` | chezmoi 차이, Git 변경, Homebrew 업데이트 대상 확인 |
 | `apply` | 관리 중인 설정을 실제 전역 경로에 적용 |
 | `snapshot` | 전역 설정 변경과 설치 목록을 로컬 저장소에 수집 |
-| `sync` | 수집 → 검사 → 서명 커밋 → `main` 푸시 → 원격 SHA 확인 |
+| `sync` | 수집 → 검사·서명 커밋 → 원격 pull·병합 → 전역 스킬 반영 → 푸시·확인 |
 | `packages-snapshot` | 현재 설치 목록으로 `packages/darwin/Brewfile` 갱신 |
 | `apps-snapshot` | `packages/discovered-apps.md` 갱신 |
 | `update` | 로컬 설정 수집 후 설치된 패키지 관리자 업데이트 |
@@ -78,7 +78,7 @@ Codex 자동화 설정에는 현재 채팅 ID가 포함되므로, 다른 Mac에�
 | `bootstrap` | 새 Mac 초기 설치와 설정 복원 |
 
 `update`는 Homebrew와 설치된 pipx·uv·npm·rustup을 대상으로 합니다.
-`sync`는 원격 설정을 가져와 실제 설정에 적용하는 명령이 아닙니다.
+`sync`는 로컬 변경을 먼저 검사·서명 커밋하고, 원격 `main`을 pull·병합한 뒤 저장소가 관리하는 전역 지침과 사용자 스킬을 적용합니다. 다른 앱 설정과 시크릿은 자동 적용하지 않습니다.
 
 ## 전역 스킬
 
@@ -109,8 +109,8 @@ Ego 스킬은 앱 소유 경로를 가리키는 심볼릭 링크만 관리합니
 암호화된 시크릿은 `dotfiles-secrets`의 전용 도구로 갱신합니다.
 
 자동 커밋은 Git 추적 파일만 포함합니다. 새 파일은 검토 후 명시적으로 등록해야 합니다.
-기존 staged 변경, 원격 `main`의 앞선 변경·분기, 시크릿 검사 실패, 서명 실패가 있으면
-푸시를 중단합니다. 강제 푸시하거나 서명을 끄지 않습니다.
+원격 `main`이 앞서 있으면 자동으로 pull·병합하고, 분기된 이력은 서명한 병합 커밋으로 통합합니다. 다른 작업의 staged 변경, 실제 병합·전역 파일 충돌, 시크릿 검사 실패, 서명 실패가 있으면
+변경과 충돌 상태를 보존한 채 푸시를 중단합니다. 강제 푸시하거나 서명을 끄지 않습니다.
 
 | 기록 | 위치 |
 | --- | --- |
@@ -134,3 +134,7 @@ age identity는 `~/.config/chezmoi/key.txt`에만 두고 복구 사본은 Apple 
 Ghostty, tmux, Vim은 chezmoi 템플릿으로 macOS 전용 옵션과 Linux 설정을 구분합니다. tmux Linux 상태바는 `/proc/loadavg`를 사용하고, Vim Linux 도구는 PATH에서 찾습니다. 테마·글꼴·키 설정은 기존 값을 유지합니다. WezTerm은 사용하지 않아 관리 대상에서 제거했습니다. 이 템플릿의 변경은 소스에 반영한 뒤 해당 파일만 적용합니다. `re-add`는 템플릿 파일 변경을 역으로 수집하지 않습니다.
 
 Codex 전역 지침과 `dotfiles-config` 스킬도 chezmoi 템플릿으로 OS별 운영 방식을 구분합니다. Fedora에서는 macOS 전용 Secretive·브라우저 라우팅·자동 동기화 지침과 소프트웨어 관리 스킬을 적용하지 않습니다. `dotfiles-secrets`의 클립보드 처리는 macOS의 `pbcopy`와 Linux의 `wl-copy`·`xclip`을 지원합니다.
+
+동기화는 운영체제 파일 잠금을 사용하며 프로세스 종료 시 자동 해제됩니다. 이전 세션의 잠금 파일이 남아 있어도 정상 실행을 막지 않습니다.
+
+- 자동 동기화가 남긴 staged 변경은 HEAD와 index tree 지문으로 식별해 다음 실행에서 재검사·서명 커밋을 재개한다. 다른 작업의 staged 변경과 실제 충돌은 보존하며, 같은 실패는 상태가 바뀌거나 조치가 필요할 때만 알린다.
