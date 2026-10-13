@@ -1,0 +1,17 @@
+[Unit]
+Description=Nintendo Switch captive portal DNS
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hoya/workspace/Switch-PC-Stream
+Environment=CAPTIVE_DNS_BIND=118.33.24.126
+Environment=CAPTIVE_PORTAL_IP=118.33.24.126
+Environment=CAPTIVE_DNS_ALLOWED_CLIENTS=61.73.5.20,118.33.24.126
+ExecStart=/home/hoya/workspace/Switch-PC-Stream/.venv/bin/python /home/hoya/workspace/Switch-PC-Stream/captive_dns.py
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target
