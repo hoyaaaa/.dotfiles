@@ -7,6 +7,8 @@ inventories/**
 docs/**
 
 {{ if ne .chezmoi.os "darwin" }}
+.local/bin/codex-fedora
+.codex/fedora-qwen.config.toml
 .aerospace.toml
 .finicky.js
 Library/**
