@@ -3,6 +3,10 @@ typeset -U path PATH
 [[ -d /opt/homebrew/bin ]] && path=(/opt/homebrew/bin $path)
 [[ -d /opt/homebrew/sbin ]] && path=(/opt/homebrew/sbin $path)
 
+# Save terminal state before instant prompt redirects stdout.
+typeset -i _hoya_prompt_tty=0
+[[ -t 1 ]] && _hoya_prompt_tty=1
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -34,12 +38,13 @@ alias awslogin="aws sso login --profile ${AWS_DEFAULT_PROFILE}"
 export PATH=$HOME/go/bin:$PATH
 
 # prompt (skip prompt daemons when stdout is not a terminal)
-if [[ -t 1 && -r "$HOME/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
+if [[ $_hoya_prompt_tty == 1 && -r "$HOME/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
   source "$HOME/powerlevel10k/powerlevel10k.zsh-theme"
   [[ -r "$HOME/.p10k.zsh" ]] && source "$HOME/.p10k.zsh"
-elif [[ -t 1 ]] && command -v starship >/dev/null; then
+elif [[ $_hoya_prompt_tty == 1 ]] && command -v starship >/dev/null; then
   eval "$(starship init zsh)"
 fi
+unset _hoya_prompt_tty
 
 # config files
 export XDG_CONFIG_HOME=$HOME/.config

@@ -70,8 +70,10 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 - Official source: https://lmstudio.ai/docs/developer/core/headless
 - Installed on Fedora with the official Linux installer; the headless vendor runtime is independent of the Mac desktop app.
 - Restore: install llmster with the official installer, then copy `scripts/lmstudio-fedora-start.sh` to `~/.local/bin/lmstudio-server-start` and make it executable.
-- Model: `lmstudio-community/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q4_K_M.gguf` under `~/.lmstudio/models/`; restore the model separately, never commit the model binary.
-- Load settings: context 32768, parallel 1, full GPU offload, Flash Attention, K/V cache q8_0. Set these as model defaults in LM Studio before starting the saved helper.
+- Active model: `google/gemma-4-12B-it-qat-q4_0-gguf/gemma-4-12b-it-qat-q4_0.gguf` under `~/.lmstudio/models/`; restore the model separately, never commit the model binary.
+- Load settings: context 16384, parallel 1, full GPU offload, Flash Attention, K/V cache q8_0. Set these as model defaults in LM Studio before starting the saved helper.
 - For Codex compatibility, the Qwen template must render additional system messages instead of raising `System message must be at the beginning.` Preserve tool formatting.
 - Verify on Fedora: `~/.lmstudio/bin/lms ps` and `nvidia-smi`.
-- Mac entrypoint: `codex-fedora`, using the `fedora-qwen` Codex profile and direct Tailscale DNS access at `http://fedora.tailbce116.ts.net:1234/v1` (server bound only to its Tailscale address). The Mac launcher and profile are managed by chezmoi; authentication remains in the existing SSH configuration.
+- Mac entrypoint: `codex-fedora`, using the `fedora-gemma` Codex profile and direct Tailscale DNS access at `http://fedora.tailbce116.ts.net:1234/v1` (server bound only to its Tailscale address). The Mac launcher and profile are managed by chezmoi; authentication remains in the existing SSH configuration.
+
+- CUDA runtime: llama.cpp 2.56.0 or later with Gemma 4 support. Main and chapter-worker context 16384; auto-compaction 12000. The previous Qwen model/profile remain available as a fallback.
