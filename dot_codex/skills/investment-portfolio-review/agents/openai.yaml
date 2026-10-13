@@ -1,4 +1,0 @@
-interface:
-  display_name: "Investment Portfolio Review"
-  short_description: "Analyze holdings, income, leverage, and portfolio risk."
-  default_prompt: "Review my current investment portfolio, including total return, income quality, concentration, and leverage risk."

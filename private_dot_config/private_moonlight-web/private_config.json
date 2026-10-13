@@ -1,0 +1,54 @@
+{
+  "data_storage": {
+    "type": "json",
+    "path": "/home/hoya/.local/share/moonlight-web/data.json",
+    "session_expiration_check_interval": {
+      "secs": 300,
+      "nanos": 0
+    }
+  },
+  "webrtc": {
+    "ice_servers": [],
+    "ice_server_script": null,
+    "port_range": {
+      "min": 40000,
+      "max": 40010
+    },
+    "nat_1to1": {
+      "ice_candidate_type": "host",
+      "ips": [
+        "10.44.0.1"
+      ]
+    },
+    "network_types": [
+      "udp4"
+    ],
+    "include_loopback_candidates": true
+  },
+  "web_server": {
+    "bind_address": "10.44.0.1:8080",
+    "certificate": null,
+    "url_path_prefix": "",
+    "session_cookie_secure": false,
+    "session_cookie_expiration": {
+      "secs": 86400,
+      "nanos": 0
+    },
+    "first_login_create_admin": true,
+    "first_login_assign_global_hosts": true,
+    "default_user_id": 1680389230,
+    "default_role_id": null,
+    "forwarded_header": null
+  },
+  "moonlight": {
+    "default_http_port": 47989,
+    "pair_device_name": "moonlight-web-fedora"
+  },
+  "streamer_path": "/home/hoya/.local/share/moonlight-web/v2.10.0/streamer",
+  "log": {
+    "level_filter": "INFO",
+    "file_path": null,
+    "dev_venator": false
+  },
+  "default_settings": null
+}

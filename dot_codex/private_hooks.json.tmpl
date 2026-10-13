@@ -1,0 +1,150 @@
+{{- if eq .chezmoi.os "darwin" -}}
+{
+  "description": "Global lifecycle hooks for Secretive signing, dotfiles sync, and ego-lite browser-routing policy.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__cua_repl__js|mcp__cua_repl_js|mcp__codex_app__open_in_codex",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"/usr/bin/python3\" \"/Users/hoya/.codex/hooks/browser-routing-policy.py\"",
+            "timeout": 10,
+            "statusMessage": "브라우저 라우팅 정책 확인"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"/usr/bin/python3\" \"/Users/hoya/.codex/hooks/browser-routing-policy.py\"",
+            "timeout": 10,
+            "statusMessage": "브라우저 라우팅 정책 확인"
+          },
+          {
+            "type": "command",
+            "command": "\"/bin/sh\" \"/Users/hoya/.codex/skills/secretive/scripts/ensure-notify-key.sh\"",
+            "timeout": 10,
+            "statusMessage": "Secretive SSH 키 확인"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"/bin/bash\" \"/Users/hoya/.dotfiles/scripts/codex-sync.sh\"",
+            "timeout": 120,
+            "statusMessage": "Dotfiles 동기화"
+          }
+        ]
+      }
+    ],
+    "Stop": []
+  }
+}
+{{- else if eq .chezmoi.os "linux" -}}
+{
+  "description": "Global lifecycle hooks for Orca desktop integration.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -r '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -x '/home/hoya/.orca/agent-hooks/codex-hook.sh' ]; then /bin/sh '/home/hoya/.orca/agent-hooks/codex-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -r '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -x '/home/hoya/.orca/agent-hooks/codex-hook.sh' ]; then /bin/sh '/home/hoya/.orca/agent-hooks/codex-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -r '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -x '/home/hoya/.orca/agent-hooks/codex-hook.sh' ]; then /bin/sh '/home/hoya/.orca/agent-hooks/codex-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -r '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -x '/home/hoya/.orca/agent-hooks/codex-hook.sh' ]; then /bin/sh '/home/hoya/.orca/agent-hooks/codex-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -r '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -x '/home/hoya/.orca/agent-hooks/codex-hook.sh' ]; then /bin/sh '/home/hoya/.orca/agent-hooks/codex-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -r '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -x '/home/hoya/.orca/agent-hooks/codex-hook.sh' ]; then /bin/sh '/home/hoya/.orca/agent-hooks/codex-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -r '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -x '/home/hoya/.orca/agent-hooks/codex-hook.sh' ]; then /bin/sh '/home/hoya/.orca/agent-hooks/codex-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -r '/home/hoya/.orca/agent-hooks/codex-hook.sh' ] && [ -x '/home/hoya/.orca/agent-hooks/codex-hook.sh' ]; then /bin/sh '/home/hoya/.orca/agent-hooks/codex-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
+{{- else -}}
+{
+  "description": "No global lifecycle hooks are configured for this operating system.",
+  "hooks": {}
+}
+{{- end -}}
