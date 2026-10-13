@@ -58,13 +58,6 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 - Storage: `~/.lmstudio/bin/lms`, `~/.lmstudio/llmster`; model weights live under `~/.lmstudio/models` and are re-downloaded.
 - Verify: `~/.lmstudio/bin/lms daemon status` and `~/.lmstudio/bin/lms server status`.
 
-## Qwen3.5 9B local model
-
-- Source: https://huggingface.co/lmstudio-community/Qwen3.5-9B-GGUF
-- Reason: model weights are downloaded separately from the LM Studio app and are not included in Brewfile.
-- Restore: use LM Studio to download `lmstudio-community/Qwen3.5-9B-GGUF` with `Q4_K_M` quantization (about 5.6 GB).
-- Verify: `~/.lmstudio/bin/lms ls` lists the model; `lms load` can load it.
-
 ## Fedora GPU inference: LM Studio llmster
 
 - Official source: https://lmstudio.ai/docs/developer/core/headless
@@ -74,6 +67,6 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 - Load settings: context 16384, parallel 1, full GPU offload, Flash Attention, K/V cache q8_0. Set these as model defaults in LM Studio before starting the saved helper.
 - For Codex compatibility, the Qwen template must render additional system messages instead of raising `System message must be at the beginning.` Preserve tool formatting.
 - Verify on Fedora: `~/.lmstudio/bin/lms ps` and `nvidia-smi`.
-- Mac entrypoint: `codex-fedora`, using the `fedora-gemma` Codex profile and direct Tailscale DNS access at `http://fedora.tailbce116.ts.net:1234/v1` (server bound only to its Tailscale address). The Mac launcher and profile are managed by chezmoi; authentication remains in the existing SSH configuration.
+- Mac entrypoint: `codex-fedora`, using the `fedora-gemma` Codex profile and direct WireGuard access at `http://10.44.0.1:1234/v1` (server bound only to its WireGuard address). The Mac launcher and profile are managed by chezmoi; authentication remains in the existing SSH configuration.
 
 - CUDA runtime: llama.cpp 2.56.0 or later with Gemma 4 support. Main and chapter-worker context 16384; auto-compaction 12000. The previous Qwen model/profile remain available as a fallback.
