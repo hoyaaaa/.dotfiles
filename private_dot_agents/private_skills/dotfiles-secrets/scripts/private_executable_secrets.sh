@@ -4,7 +4,7 @@ set -Eeuo pipefail
 store="${XDG_CONFIG_HOME:-$HOME/.config}/chezmoi-secrets/secrets.json"
 
 usage() {
-  printf 'Usage: %s list | copy <path> | set <path> | remove <path> | sync\n' "$0" >&2
+  printf 'Usage: %s list | copy <path> | set <path> | remove <path> | sync | exec-env <path> <ENV_NAME> [...] -- <command> [args...]\n' "$0" >&2
   exit 2
 }
 
@@ -71,6 +71,28 @@ case "$command" in
   sync)
     require_store
     sync_store
+    ;;
+  exec-env)
+    require_store
+    shift
+    while [[ $# -gt 0 && "$1" != -- ]]; do
+      [[ $# -ge 2 ]] || usage
+      path="$1"
+      env_name="$2"
+      [[ "$env_name" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]] || {
+        printf 'Invalid environment variable name: %s\n' "$env_name" >&2
+        exit 2
+      }
+      encoded_value="$(jq -er --arg path "$path" '.[$path]' "$store")"
+      secret_value="$(printf '%s' "$encoded_value" | base64 --decode)"
+      export "$env_name=$secret_value"
+      unset encoded_value secret_value
+      shift 2
+    done
+    [[ "${1:-}" == -- ]] || usage
+    shift
+    [[ $# -gt 0 ]] || usage
+    exec "$@"
     ;;
   *)
     usage
