@@ -64,9 +64,25 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 - Installed on Fedora with the official Linux installer; the headless vendor runtime is independent of the Mac desktop app.
 - Restore: install llmster with the official installer, then copy `scripts/lmstudio-fedora-start.sh` to `~/.local/bin/lmstudio-server-start` and make it executable.
 - Active model: `google/gemma-4-12B-it-qat-q4_0-gguf/gemma-4-12b-it-qat-q4_0.gguf` under `~/.lmstudio/models/`; restore the model separately, never commit the model binary.
-- Load settings: context 16384, parallel 1, full GPU offload, Flash Attention, K/V cache q8_0. Set these as model defaults in LM Studio before starting the saved helper.
+- Load settings: context 32768, parallel 1, GPU offload ratio 0.8 (32K context fits RTX 3070 VRAM), Flash Attention, K/V cache q8_0. Set these as model defaults in LM Studio before starting the saved helper.
 - For Codex compatibility, the Qwen template must render additional system messages instead of raising `System message must be at the beginning.` Preserve tool formatting.
 - Verify on Fedora: `~/.lmstudio/bin/lms ps` and `nvidia-smi`.
 - Mac entrypoint: `codex-fedora`, using the `fedora-gemma` Codex profile and direct WireGuard access at `http://10.44.0.1:1234/v1` (server bound only to its WireGuard address). The Mac launcher and profile are managed by chezmoi; authentication remains in the existing SSH configuration.
 
-- CUDA runtime: llama.cpp 2.56.0 or later with Gemma 4 support. Main and chapter-worker context 16384; auto-compaction 12000. The previous Qwen model/profile remain available as a fallback.
+- CUDA runtime: llama.cpp 2.56.0 or later with Gemma 4 support. Main and chapter-worker context 32768; auto-compaction 8000. The previous Qwen model/profile remain available as a fallback.
+
+## OpenCodex (Mac and Fedora)
+
+- Source: https://github.com/lidge-jun/opencodex
+- Manual install: no Homebrew formula; npm package `@bitkyc08/opencodex@2.84.0`, global prefix `~/.local`.
+- Restore: apply `~/.opencodex/config.json`, then run `run_onchange_after_20-opencodex-service.sh` with Node/npm on PATH.
+- Each computer runs its own loopback-only OpenCodex on port 10100; Mac connects directly to Fedora LM Studio via WireGuard `10.44.0.1:1234/v1`.
+- Mac Gemma entrypoint: `opencodex-fedora`; `codex-fedora` delegates to it for compatibility. No SSH inference tunnel.
+- Model: `lm-studio/gemma-4-12b-it-qat`; context 32768, compaction 8000.
+- Verify: `opencodex ready`, `opencodex provider test lm-studio`, and a Codex response through the proxy.
+
+## Fedora long-context writing configuration
+
+- Active model: existing Qwen3.5-9B Q4_K_M, context 65536, parallel 1, full GPU offload, Flash Attention, Q4_0 K/V caches.
+- Project compaction: 18000; OpenCodex LM Studio cap 65536. Gemma remains on disk as a fallback.
+- Q4 KV cache trades precision for memory; compare writing quality on actual manuscripts.

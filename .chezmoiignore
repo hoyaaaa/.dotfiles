@@ -8,6 +8,7 @@ docs/**
 
 {{ if ne .chezmoi.os "darwin" }}
 .local/bin/codex-fedora
+.local/bin/opencodex-fedora
 .codex/fedora-qwen.config.toml
 .codex/fedora-gemma.config.toml
 .aerospace.toml
