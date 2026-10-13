@@ -86,3 +86,22 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 - Active model: existing Qwen3.5-9B Q4_K_M, context 65536, parallel 1, full GPU offload, Flash Attention, Q4_0 K/V caches.
 - Project compaction: 18000; OpenCodex LM Studio cap 65536. Gemma remains on disk as a fallback.
 - Q4 KV cache trades precision for memory; compare writing quality on actual manuscripts.
+
+## Fedora Qwen 4B 128K trial
+
+- Model: lmstudio-community/Qwen3.5-4B-GGUF/Qwen3.5-4B-Q4_K_M.gguf; restore from https://huggingface.co/lmstudio-community/Qwen3.5-4B-GGUF .
+- Active context 131072; parallel 1; full GPU offload; Q4_0 K/V cache; Flash Attention. Project compaction 104857 (80% of 131072).
+- Previous Qwen 9B and Gemma remain on disk; only active 4B is selected in OpenCodex to avoid advertising the same context cap for differently loaded models.
+
+## Active Fedora Qwen 9B 128K configuration
+
+- Qwen3.5-9B Q4_K_M restored as active model; previous 4B remains on disk.
+- Context 131072, project compaction 104857 (80%), parallel 1, Q4_0 K/V cache, GPU offload 0.75.
+- Startup helper and OpenCodex Home selection use qwen3.5-9b; Mac Child receives Home catalog.
+
+## OpenCodex independent routing
+
+- Mac Remote Link Child disconnected; both Mac and Fedora independently manage their own providers and credentials.
+- Mac Codex → Mac loopback OpenCodex :10100 → Fedora LM Studio over WireGuard 10.44.0.1:1234. No remote OpenCodex relay.
+
+- Mac OpenCodex LM Studio provider uses `codexToolMode: shell`; routed Qwen exposes native exec_command instead of code_mode_only JavaScript wrapper.
