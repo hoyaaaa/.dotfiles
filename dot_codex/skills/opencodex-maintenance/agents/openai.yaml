@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenCodex Maintenance"
+  short_description: "OpenCodex와 Codex 모델 카탈로그 상태 점검·복구"
+  default_prompt: "$opencodex-maintenance를 사용해 OpenCodex, Codex 모델 카탈로그, LM Studio WireGuard 연결을 점검하고 필요한 범위만 복구해줘."
