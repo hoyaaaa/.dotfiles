@@ -1,0 +1,16 @@
+[Unit]
+Description=Caddy public reverse proxy for Moonlight Web
+After=network-online.target moonlight-web.service
+Wants=network-online.target
+
+[Container]
+Image=docker.io/library/caddy:2-alpine
+ContainerName=moonlight-caddy
+Network=host
+Volume=/home/hoya/.config/caddy/moonlight.Caddyfile:/etc/caddy/Caddyfile:ro,Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

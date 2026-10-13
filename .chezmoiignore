@@ -7,11 +7,13 @@ inventories/**
 docs/**
 
 {{ if ne .chezmoi.os "darwin" }}
+.local/bin/codex-fedora
+.codex/fedora-qwen.config.toml
+.codex/fedora-gemma.config.toml
 .aerospace.toml
 .finicky.js
 Library/**
 .config/karabiner/**
-.codex/hooks.json
 .codex/automations/**
 .codex/skills/secretive/**
 .codex/skills/aws-sso-chrome-login/**
@@ -33,6 +35,9 @@ Library/**
 .pgpass
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
+.config/caddy/**
+.config/containers/**
+.config/moonlight-web/**
 .config/systemd/**
 {{ end }}
 {{ if eq .chezmoi.os "windows" }}
