@@ -1,0 +1,39 @@
+{
+  "port": 10100,
+  "managementUsageMaxReadBytes": 67108864,
+  "appOwnedMemoryBudgetMb": 256,
+  "providers": {
+    "openai": {
+      "adapter": "openai-responses",
+      "baseUrl": "https://chatgpt.com/backend-api/codex",
+      "codexAccountMode": "pool",
+      "authMode": "forward"
+    },
+    "lm-studio": {
+      "adapter": "openai-chat",
+      "baseUrl": "http://10.44.0.1:1234/v1",
+      "authMode": "local",
+      "selectedModels": [
+        "gemma-4-12b-it-qat",
+        "qwen3.5-9b"
+      ],
+      "allowPrivateNetwork": true,
+      "liveModels": true
+    }
+  },
+  "defaultProvider": "openai",
+  "fastRows": true,
+  "emptyCompletionRetry": false,
+  "openaiProviderTierVersion": 2,
+  "subagentModelsVersion": 3,
+  "subagentModels": [
+    "gpt-6-astra",
+    "gpt-6.1-sol",
+    "gpt-6-luna"
+  ],
+  "multiAgentGuidanceEnabled": true,
+  "codexShimAutoRestore": true,
+  "websockets": false,
+  "codexAutoStart": true,
+  "activeCodexAccountId": "__main__"
+}

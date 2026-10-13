@@ -1,0 +1,13 @@
+[Unit]
+Description=LM Studio API server on WireGuard
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.lmstudio/bin/lms server start --port 1234 --bind 10.44.0.1
+ExecStop=%h/.lmstudio/bin/lms server stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
