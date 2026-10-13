@@ -61,3 +61,5 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
 - Dotfiles sync must preserve and validate local changes, create a signed commit when needed, then pull remote main with signature-preserving merge and update repository-managed global skills before pushing. Being behind remote is not itself an error. Stop only on actual conflicts, unrelated staged changes, failed checks, or failed authentication/signing; preserve work and never force-push.
 
 - 자동 동기화가 남긴 staged 변경은 HEAD와 index tree 지문으로 식별해 다음 실행에서 재검사·서명 커밋을 재개한다. 다른 작업의 staged 변경과 실제 충돌은 보존하며, 같은 실패는 상태가 바뀌거나 조치가 필요할 때만 알린다.
+
+- 원격에서 가져온 기존 커밋의 무서명 여부만으로 최신화를 중단하지 않는다. 자동화가 새로 만든 로컬 커밋·병합 커밋과 실제로 푸시할 로컬 커밋은 서명·검증한다. 원격 이력은 재작성하지 않으며 내용 검사와 실제 파일 충돌 검사는 유지한다.

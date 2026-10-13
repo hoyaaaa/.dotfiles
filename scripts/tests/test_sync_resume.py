@@ -24,4 +24,11 @@ with tempfile.TemporaryDirectory() as tmp:
     before = git('write-tree')
     assert attempt() != 0
     assert git('write-tree') == before  # foreign staging survives intact
-print('PASS: own staged retry, foreign index preservation')
+    # An unsigned upstream tip creates no outgoing signature work after FF.
+    git('update-ref','refs/remotes/origin/main',commit.decode())
+    assert git('rev-list','refs/remotes/origin/main..HEAD') == b''
+    # A local commit must be in the outgoing range even with unsigned upstream.
+    local = git('-c','user.name=Test','-c','user.email=test@example.invalid','commit-tree',tree.decode(),'-p',commit.decode(),data=b'local fixture\n').strip()
+    git('update-ref','refs/heads/main',local.decode())
+    assert git('rev-list','refs/remotes/origin/main..HEAD').strip() == local
+print('PASS: own staged retry, foreign index preservation, upstream/outgoing signature scope')

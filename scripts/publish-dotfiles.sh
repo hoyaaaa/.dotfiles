@@ -15,6 +15,7 @@ main() {
   check_workflow
   if ! git diff --cached --quiet; then
     git commit -S -m "chore: sync dotfiles $(date '+%F %T')"
+    git verify-commit HEAD
     rm -f "$(git rev-parse --git-path dotfiles-sync.pending)"
   fi
   # Preserve existing commit signatures; a divergent history receives a signed merge.
@@ -22,7 +23,11 @@ main() {
   git -c 'credential.helper=!gh auth git-credential' pull --no-rebase --no-edit -S https://github.com/hoyaaaa/.dotfiles.git main
   git diff --check
   check_workflow
-  git verify-commit HEAD
+  # Verify only commits this checkout is about to publish. Fast-forwarded
+  # upstream commits may be unsigned; no existing history is rewritten.
+  for commit in $(git rev-list FETCH_HEAD..HEAD); do
+    git verify-commit "$commit"
+  done
   # Apply only repository-managed, non-encrypted agent files; app-owned skills
   # and secret values stay outside the update. Conflicting live edits cause failure.
   chezmoi --source "$REPO_DIR" apply --recursive --no-tty --exclude encrypted \
@@ -31,7 +36,7 @@ main() {
   local_sha="$(git rev-parse HEAD)"
   remote_sha="$(git -c 'credential.helper=!gh auth git-credential' ls-remote https://github.com/hoyaaaa/.dotfiles.git refs/heads/main | awk '{print $1}')"
   [[ "$local_sha" == "$remote_sha" ]] || { echo 'Remote SHA changed; inspect before retrying.' >&2; exit 1; }
-  printf 'Verified dotfiles main: %s\n' "$local_sha"
+  printf 'Verified remote SHA for dotfiles main: %s\n' "$local_sha"
 }
 check_workflow() {
   bash -n "$REPO_DIR/bin/dotfiles" "$REPO_DIR/scripts/codex-sync.sh" "$REPO_DIR/scripts/publish-dotfiles.sh" "$REPO_DIR/scripts/darwin/update-packages.sh"
