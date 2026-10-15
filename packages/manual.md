@@ -3,12 +3,14 @@
 Only software and setup that cannot be restored from `Brewfile` belongs here.
 Downloaded installers, licenses, credentials, and private keys must not be committed.
 
-## Burly
+## Default browser setup
 
-- Source: https://www.burly.click/
-- Reason: the official macOS app is distributed directly and is unavailable through Homebrew and the Mac App Store.
-- Restore: download it from the official site and move `Burly.app` to `/Applications`.
-- Verify: open Burly and confirm it appears as a macOS default-browser option.
+- Install Zen Browser from the managed Homebrew Cask inventory.
+- In System Settings → Desktop & Dock, select Zen as the default web browser. Verify the selected app in the UI; `duti` may return without changing the default on macOS 15.
+- In Zen, enable `browser.profiles.enabled` and use the built-in Profiles menu and profile chooser. Keep “Choose a profile when Zen opens” enabled when using separate profiles.
+- Bookmark `about:profilemanager` as “프로필 전환” in the bookmarks toolbar for one-click access from each profile.
+- Keep a Zen shortcut in the Dock.
+- Restore private browser data from a separate local backup or browser sync. Never store browser profiles, cookies, autofill data, or authentication state in this repository.
 
 ## ego lite
 
