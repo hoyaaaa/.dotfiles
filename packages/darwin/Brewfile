@@ -63,6 +63,8 @@ brew "fastfetch"
 brew "fastlane"
 # Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
+# Tool to install, manage and use Progressive Web Apps in Mozilla Firefox
+brew "firefoxpwa"
 # User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
 # Command-line tools for fly.io services
