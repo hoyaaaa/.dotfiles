@@ -237,6 +237,8 @@ cask "todoist-app"
 cask "visual-studio-code"
 # Menu bar toolkit with keep-awake, system monitor and volume mixer
 cask "vorssaint"
+# Gecko based web browser
+cask "zen"
 mas "CotEditor", id: 1024640650
 mas "Hidden Bar", id: 1452453066
 mas "RunCat", id: 1429033973
