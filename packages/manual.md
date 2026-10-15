@@ -6,11 +6,21 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 ## Default browser setup
 
 - Install Zen Browser from the managed Homebrew Cask inventory.
-- In System Settings → Desktop & Dock, select Zen as the default web browser. Verify the selected app in the UI; `duti` may return without changing the default on macOS 15.
+- In System Settings → Desktop & Dock, select Zen Link Chooser as the default web browser to choose a Zen profile for each external link. Verify the selected app in the UI; `duti` may return without changing the default on macOS 15.
 - In Zen, enable `browser.profiles.enabled` and use the built-in Profiles menu and profile chooser. Keep “Choose a profile when Zen opens” enabled when using separate profiles.
 - Bookmark `about:profilemanager` as “프로필 전환” in the bookmarks toolbar for one-click access from each profile.
 - Keep a Zen shortcut in the Dock.
 - Restore private browser data from a separate local backup or browser sync. Never store browser profiles, cookies, autofill data, or authentication state in this repository.
+
+## Zen Link Chooser
+
+- Source: https://github.com/hoyaaaa/zen-profile-chooser (private, user-owned app).
+- Reason: custom Swift/AppKit app; no package-manager release exists.
+- Restore: install Xcode Command Line Tools and Python 3, clone `https://github.com/hoyaaaa/zen-profile-chooser.git`, then run `python3 install.py` from that checkout. Updates are maintained in that repository.
+- Installed app: `~/Applications/Zen Link Chooser.app`. Select it in System Settings → Desktop & Dock → Default web browser.
+- Lifecycle: `~/Library/LaunchAgents/local.hoya.zen-link-watcher.plist` listens for Zen launches. The chooser exits after all Zen processes close; the small event listener stays available for the next launch.
+- Profiles are read at runtime from Zen's private `profiles.ini`; links and profile data are not saved by the chooser.
+- Verify: run the installed executable with `--self-test`; open an external HTTPS link and select a profile, including one already running.
 
 ## ego lite
 

@@ -5,4 +5,5 @@ installed but are not currently represented by Homebrew Cask or the Mac App Stor
 Review them with `packages/manual.md`; do not add secrets or installer files here.
 
 - TrackPointD.app
+- Zen Link Chooser.app
 - ego lite.app
