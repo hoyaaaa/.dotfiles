@@ -5,22 +5,21 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 
 ## Default browser setup
 
-- Install Zen Browser from the managed Homebrew Cask inventory.
-- In System Settings → Desktop & Dock, select Zen Link Chooser as the default web browser to choose a container in the default Zen profile for each external link. Verify the selected app in the UI; `duti` may return without changing the default on macOS 15.
-- Use one default Zen profile with separate personal/work/base containers assigned to corresponding workspaces. Enable container-to-workspace switching and container-specific Essentials. Preserve old profiles separately.
-- Install and enable the Mozilla-signed Open external links in a container extension in the default profile: https://addons.mozilla.org/firefox/addon/open-url-in-container/ . Keep browser signature enforcement enabled.
-- Keep a Zen shortcut in the Dock.
-- Restore private browser data from a separate local backup or browser sync. Never store browser profiles, cookies, autofill data, or authentication state in this repository.
+- Install Orion from the managed Homebrew Cask inventory (`brew install --cask orion`). The existing official installation has been adopted into Homebrew management.
+- Installed app: `/Applications/Orion.app`; official website: https://browser.kagi.com/ .
+- In System Settings → Desktop & Dock, choose Orion Link Chooser as the default web browser. Verify both HTTP and HTTPS handlers plus an external-link selection.
+- Use separate Orion profiles for 개인, 회사, 베이스. Older Zen profiles are archived outside the active profile list. Tab groups preserve the source windows; vertical tabs are enabled.
+- Restore private data from a separate local backup. Cookies, site storage, and extension state are not transferred by Orion's native Firefox import. Do not store browser data in dotfiles.
+- Keep an Orion shortcut in the Dock.
 
-## Zen Link Chooser
+## Orion Link Chooser
 
-- Source: https://github.com/hoyaaaa/zen-profile-chooser (private, user-owned app).
-- Reason: custom Swift/AppKit app; no package-manager release exists.
-- Restore: install Xcode Command Line Tools and Python 3, clone `https://github.com/hoyaaaa/zen-profile-chooser.git`, then run `python3 install.py` from that checkout. Updates are maintained in that repository.
-- Installed app: `~/Applications/Zen Link Chooser.app`. Select it in System Settings → Desktop & Dock → Default web browser.
-- Lifecycle: `~/Library/LaunchAgents/local.hoya.zen-link-watcher.plist` listens for Zen launches. The chooser exits after all Zen processes close; the small event listener stays available for the next launch.
-- The default profile and its public containers are read at runtime; links and profile data are not saved by the chooser.
-- Verify: run the installed executable with `--self-test`; open an external HTTPS link and select a container, including while Zen is already running.
+- Source: chezmoi-managed `~/.local/share/orion-link-chooser/` (Swift/AppKit; adapted from the user's Zen chooser).
+- Reason: custom app with no package-manager release.
+- Restore: install Xcode Command Line Tools and Python 3, then run `python3 ~/.local/share/orion-link-chooser/install.py`.
+- Installed app: `~/Applications/Orion Link Chooser.app`.
+- Lifecycle: macOS launches the chooser on demand for HTTP/HTTPS links; no background watcher is installed. No URLs or browser data are stored.
+- Verify: run its `Contents/MacOS/OrionLinkChooser --self-test`, open an external URL, and verify the selected Orion profile received it.
 
 ## ego lite
 
