@@ -5,6 +5,7 @@ installed but are not currently represented by Homebrew Cask or the Mac App Stor
 Review them with `packages/manual.md`; do not add secrets or installer files here.
 
 - GROVE.app
+- KakaoTalk.app
 - Orion Link Chooser.app
 - TrackPointD.app
 - ego lite.app
