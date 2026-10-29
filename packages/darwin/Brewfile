@@ -185,6 +185,10 @@ brew "zsh-autosuggestions"
 brew "hashicorp/tap/terraform", trusted: true
 # Image editing and design software
 cask "affinity"
+# Command-line tools for building and debugging Android apps
+cask "android-commandlinetools"
+# Android SDK component
+cask "android-platform-tools"
 # Web browser with built-in AI assistant
 cask "aside"
 # Desktop password and login vault
