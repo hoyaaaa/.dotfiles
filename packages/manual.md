@@ -116,3 +116,12 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 - Mac Codex → Mac loopback OpenCodex :10100 → Fedora LM Studio over WireGuard 10.44.0.1:1234. No remote OpenCodex relay.
 
 - Mac OpenCodex LM Studio provider uses `codexToolMode: shell`; routed Qwen exposes native exec_command instead of code_mode_only JavaScript wrapper.
+
+## Xcode 26.3 (Apple silicon)
+
+- Source: https://developer.apple.com/download/all/?q=Xcode%2026.3
+- Reason: Homebrew has no Xcode cask; the current Mac App Store version requires a newer macOS than this installation.
+- Restore: sign in to Apple Developer, download the official Apple silicon XIP, expand into `/Applications`, and complete Xcode first-launch setup.
+- Installed app: `/Applications/Xcode.app`. Initial license and component setup still pending as of 2026-10-29.
+- Verify: `/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -version` after first-launch setup.
+- Signing accounts, certificates, provisioning profiles, and AAC approval must be configured separately; never store credentials here.
