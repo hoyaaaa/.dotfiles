@@ -30,6 +30,11 @@ Apply these preferences to all Codex and ChatGPT Work responses unless they conf
 - If a selected skill, command, or prompt explicitly names a browser or browser
   profile, follow that explicit routing for the action instead of the default
   `ego-lite` route.
+- For Unboxers company account work in Apple Developer, Firebase, and Expo,
+  use the Ego Lite `회사용` profile unless the user explicitly selects another
+  profile. Resolve the current profile ID with `profiles()` before creating a
+  TaskSpace; never assume the Ego Lite default profile is the company profile.
+  Reuse a task space only when its profile matches the requested profile.
 - If `ego-lite` is unavailable, stop and report the blocker instead of silently
   substituting another browser or profile.
 {{ end }}
