@@ -252,7 +252,6 @@ mas "Slack", id: 803453959
 mas "Windows App", id: 1295203466
 mas "WireGuard", id: 1451685025
 mas "듀얼 카카오톡", id: 869223134
-mas "카카오톡", id: 869223134
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
 go "github.com/golangci/golangci-lint/v2/cmd/golangci-lint"
 go "github.com/cosmos72/gomacro"
