@@ -5,6 +5,8 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 
 ## Default browser setup
 
+- Default-browser menu cleanup: unregister stale Chromium/Puppeteer test browser bundles and retired Orion chooser backups with LaunchServices; do not delete development browser binaries. These may register again when launched or updated.
+
 - Use the macOS-provided Safari with profiles 개인, 회사, 베이스. Set both HTTP and HTTPS handlers to `local.hoya.safari-link-chooser` so external links prompt for 개인/회사/베이스; HTML files remain associated with Safari.
 - Bookmarks are shared by Safari profiles; keep imported Orion bookmarks in profile-named folders. History and login cookies are isolated by profile.
 - Restore private data from a separate local backup. Never add browser data, cookies, passwords, or import archives to dotfiles.
