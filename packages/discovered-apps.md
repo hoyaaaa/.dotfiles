@@ -6,6 +6,7 @@ Review them with `packages/manual.md`; do not add secrets or installer files her
 
 - GROVE.app
 - Orion Link Chooser.app
+- Safari Link Chooser.app
 - TrackPointD.app
 - Xcode.app
 - ego lite.app
