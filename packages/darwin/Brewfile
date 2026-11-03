@@ -189,34 +189,22 @@ cask "affinity"
 cask "android-commandlinetools"
 # Android SDK component
 cask "android-platform-tools"
-# Web browser with built-in AI assistant
-cask "aside"
 # Desktop password and login vault
 cask "bitwarden"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
-# Server and cloud storage browser
-cask "cyberduck"
 # Databases and SQL IDE
 cask "datagrip"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Web browser
-cask "google-chrome"
 # Windows manager and desktop organiser
 cask "hazeover"
 # View and edit HWP documents
 cask "hop"
-# Menu bar calendar
-cask "itsycal"
 # Keyboard customiser
 cask "karabiner-elements"
-# Find shortcuts for any installed application
-cask "keyclu"
-# Discover, download, and run local LLMs
-cask "lm-studio"
 # Spreadsheet software
 cask "microsoft-excel"
 # Presentation software
@@ -231,8 +219,6 @@ cask "notion"
 cask "obsidian"
 # Replacement for Docker Desktop
 cask "orbstack"
-# WebKit based web browser
-cask "orion"
 # Open source virtual/remote desktop application
 cask "rustdesk"
 # Store SSH keys in the Secure Enclave

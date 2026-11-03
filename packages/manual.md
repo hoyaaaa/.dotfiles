@@ -5,29 +5,25 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 
 ## Default browser setup
 
-- Use the macOS-provided Safari with profiles 개인, 회사, 베이스. Set both HTTP and HTTPS handlers to `com.apple.Safari` and verify an external link.
+- Use the macOS-provided Safari with profiles 개인, 회사, 베이스. Set both HTTP and HTTPS handlers to `local.hoya.safari-link-chooser` so external links prompt for 개인/회사/베이스; HTML files remain associated with Safari.
 - Bookmarks are shared by Safari profiles; keep imported Orion bookmarks in profile-named folders. History and login cookies are isolated by profile.
 - Restore private data from a separate local backup. Never add browser data, cookies, passwords, or import archives to dotfiles.
-- Orion remains installed as a recovery source until the migration is verified; it is managed by the Homebrew `orion` Cask.
+- Orion and its legacy launchers/chooser were removed after Safari verification. Private source data and removal backups remain under `~/Library/Application Support/Browser Migration/2026-11-03/`.
 - Active tabs and tab groups were explicitly excluded from the Safari migration.
 
 ## Safari profile launchers and optional link chooser
+
+- Safari profile symbols: 개인 uses person, 회사 uses bag, 베이스 uses house; these native profile settings sync through iCloud.
+
+- Dock uses one native Safari icon; choose a profile through its New Window submenu. Optional profile launchers remain in Applications, but are not pinned because running windows belong to Safari.
 
 - Source: chezmoi-managed `~/.local/share/safari-profile-tools/`; locally built with AppleScript, Swift/AppKit, Python, and native macOS tools. No third-party launcher dependency.
 - Restore: create the three Korean-named profiles in Safari, then run `python3 ~/.local/share/safari-profile-tools/install.py`.
 - Installed apps: `~/Applications/Safari Profiles/Safari - 개인.app`, `Safari - 회사.app`, `Safari - 베이스.app`, and `~/Applications/Safari Link Chooser.app`.
 - The profile helpers use Safari's named menus and reuse matching existing windows. Safari stays one browser process. Korean Safari menus and macOS Automation/Accessibility access are required; arbitrary group names can prevent window-title matching.
-- The chooser is optional; its installer does not change default handlers or install any background launch agent.
+- The chooser handles HTTP/HTTPS links and prompts for a Safari profile. Its installer does not change default handlers or install any background launch agent.
 - Verify: run `~/Applications/Safari Link Chooser.app/Contents/MacOS/SafariLinkChooser --self-test`, then test each launcher twice and confirm profile/window reuse before putting it in the Dock.
 
-## Orion Link Chooser (retained for recovery)
-
-- Source: chezmoi-managed `~/.local/share/orion-link-chooser/` (Swift/AppKit; adapted from the user's Zen chooser).
-- Reason: custom app with no package-manager release.
-- Restore: install Xcode Command Line Tools and Python 3, then run `python3 ~/.local/share/orion-link-chooser/install.py`.
-- Installed app: `~/Applications/Orion Link Chooser.app`.
-- Lifecycle: macOS launches the chooser on demand for HTTP/HTTPS links; no background watcher is installed. No URLs or browser data are stored.
-- Verify: run its `Contents/MacOS/OrionLinkChooser --self-test`, open an external URL, and verify the selected Orion profile received it.
 
 ## ego lite
 
