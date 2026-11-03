@@ -5,14 +5,22 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 
 ## Default browser setup
 
-- Install Orion from the managed Homebrew Cask inventory (`brew install --cask orion`). The existing official installation has been adopted into Homebrew management.
-- Installed app: `/Applications/Orion.app`; official website: https://browser.kagi.com/ .
-- In System Settings → Desktop & Dock, choose Orion Link Chooser as the default web browser. Verify both HTTP and HTTPS handlers plus an external-link selection.
-- Use separate Orion profiles for 개인, 회사, 베이스. Older Zen profiles are archived outside the active profile list. Tab groups preserve the source windows; vertical tabs are enabled.
-- Restore private data from a separate local backup. Cookies, site storage, and extension state are not transferred by Orion's native Firefox import. Do not store browser data in dotfiles.
-- Keep an Orion shortcut in the Dock.
+- Use the macOS-provided Safari with profiles 개인, 회사, 베이스. Set both HTTP and HTTPS handlers to `com.apple.Safari` and verify an external link.
+- Bookmarks are shared by Safari profiles; keep imported Orion bookmarks in profile-named folders. History and login cookies are isolated by profile.
+- Restore private data from a separate local backup. Never add browser data, cookies, passwords, or import archives to dotfiles.
+- Orion remains installed as a recovery source until the migration is verified; it is managed by the Homebrew `orion` Cask.
+- Active tabs and tab groups were explicitly excluded from the Safari migration.
 
-## Orion Link Chooser
+## Safari profile launchers and optional link chooser
+
+- Source: chezmoi-managed `~/.local/share/safari-profile-tools/`; locally built with AppleScript, Swift/AppKit, Python, and native macOS tools. No third-party launcher dependency.
+- Restore: create the three Korean-named profiles in Safari, then run `python3 ~/.local/share/safari-profile-tools/install.py`.
+- Installed apps: `~/Applications/Safari Profiles/Safari - 개인.app`, `Safari - 회사.app`, `Safari - 베이스.app`, and `~/Applications/Safari Link Chooser.app`.
+- The profile helpers use Safari's named menus and reuse matching existing windows. Safari stays one browser process. Korean Safari menus and macOS Automation/Accessibility access are required; arbitrary group names can prevent window-title matching.
+- The chooser is optional; its installer does not change default handlers or install any background launch agent.
+- Verify: run `~/Applications/Safari Link Chooser.app/Contents/MacOS/SafariLinkChooser --self-test`, then test each launcher twice and confirm profile/window reuse before putting it in the Dock.
+
+## Orion Link Chooser (retained for recovery)
 
 - Source: chezmoi-managed `~/.local/share/orion-link-chooser/` (Swift/AppKit; adapted from the user's Zen chooser).
 - Reason: custom app with no package-manager release.
