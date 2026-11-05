@@ -203,6 +203,8 @@ cask "datagrip"
 cask "ghostty"
 # Windows manager and desktop organiser
 cask "hazeover"
+# Desktop app for terminals and coding agents
+cask "herdr-app"
 # View and edit HWP documents
 cask "hop"
 # Keyboard customiser

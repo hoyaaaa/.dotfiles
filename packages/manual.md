@@ -131,3 +131,12 @@ Downloaded installers, licenses, credentials, and private keys must not be commi
 - Installed app: `/Applications/Xcode.app`. Initial license and component setup still pending as of 2026-10-29.
 - Verify: `/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -version` after first-launch setup.
 - Signing accounts, certificates, provisioning profiles, and AAC approval must be configured separately; never store credentials here.
+
+## Herdr Core (macOS)
+
+- Source: https://herdr.dev/core/ and https://releases.herdr.dev/core/install.sh .
+- Reason: Herdr desktop is managed by Homebrew Cask `herdr-app`; its separate core has no Homebrew formula.
+- Restore: install the cask, then run the official core installer. The installer checks the release checksum and signed macOS bundle.
+- Binaries: `~/.local/bin/hc` and `~/.local/bin/herdr-core`; bundle: `~/.local/share/herdr-core/active/Herdr Core.app`.
+- Verify: `hc --version`, `herdr-app --version`, `herdr-app status`. Start Codex with `codex --no-daemon` so commands stay inside Herdr Core.
+- Codex login, skills, sessions and settings remain under `~/.codex`; keep app-owned state and credentials out of dotfiles.

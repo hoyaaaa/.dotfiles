@@ -7,6 +7,9 @@ inventories/**
 docs/**
 
 {{ if ne .chezmoi.os "darwin" }}
+.local/bin/herdr-codex
+.local/bin/herdr-automation
+.config/herdr-app/**
 .local/bin/codex-fedora
 .local/bin/opencodex-fedora
 .codex/fedora-qwen.config.toml
