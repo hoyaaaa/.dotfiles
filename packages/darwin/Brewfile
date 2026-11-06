@@ -3,6 +3,7 @@ tap "hashicorp/tap"
 tap "heroku/brew"
 tap "homebrew/services"
 tap "localstack/tap"
+tap "saragordic/tap"
 tap "silver-flight-group/tap", trusted: { formulae: ["kakaocli"] }
 tap "ybeapps/sourcegit"
 # Simple, modern, secure file encryption
@@ -235,6 +236,8 @@ cask "todoist-app"
 cask "visual-studio-code"
 # Menu bar toolkit with keep-awake, system monitor and volume mixer
 cask "vorssaint"
+# Menu-bar app that wraps windows in knitted borders coloured after each app
+cask "saragordic/tap/window-sweaters", trusted: true
 mas "CotEditor", id: 1024640650
 mas "Hidden Bar", id: 1452453066
 mas "RunCat", id: 1429033973
